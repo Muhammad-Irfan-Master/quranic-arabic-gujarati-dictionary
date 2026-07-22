@@ -1,0 +1,1 @@
+# quranic-arabic-gujarati-dictionary
