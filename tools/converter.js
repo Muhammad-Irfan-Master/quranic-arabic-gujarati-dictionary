@@ -35,7 +35,24 @@ button.addEventListener("click", () => {
         `;
 
         console.log(json);
+const jsonString = JSON.stringify(json, null, 2);
 
+const blob = new Blob([jsonString], {
+    type: "application/json"
+});
+
+const url = URL.createObjectURL(blob);
+
+const a = document.createElement("a");
+
+a.href = url;
+a.download = "database.json";
+
+a.click();
+
+URL.revokeObjectURL(url);
+
+status.innerHTML += "<br><br>✅ database.json Downloaded";
     };
 
     reader.readAsArrayBuffer(file);
