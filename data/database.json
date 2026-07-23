@@ -1,1 +1,32 @@
-
+[
+  {
+    "verse_id": 1,
+    "verse_key": "1:1",
+    "word": "بِسْمِ",
+    "plain": "بسم",
+    "pronunciation_gu": "બિસ્મિ",
+    "meaning_gu": "અલ્લાહના નામથી",
+    "chapter": 1,
+    "para": 1
+  },
+  {
+    "verse_id": 2,
+    "verse_key": "1:2",
+    "word": "اللَّهِ",
+    "plain": "الله",
+    "pronunciation_gu": "અલ્લાહિ",
+    "meaning_gu": "અલ્લાહ",
+    "chapter": 1,
+    "para": 1
+  },
+  {
+    "verse_id": 3,
+    "verse_key": "1:3",
+    "word": "الرَّحْمٰنِ",
+    "plain": "الرحمن",
+    "pronunciation_gu": "અર રહમાન",
+    "meaning_gu": "ખૂબ જ મહેરબાન",
+    "chapter": 1,
+    "para": 1
+  }
+]
