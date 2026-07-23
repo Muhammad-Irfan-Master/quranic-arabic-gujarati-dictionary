@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Excel to JSON Converter</title>
+
+<link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+<body>
+
+<div class="converter">
+
+    <h1>Quranic Arabic–Gujarati Dictionary</h1>
+
+    <h2>Excel → JSON Converter</h2>
+
+    <input
+        type="file"
+        id="excelFile"
+        accept=".xlsx,.xls">
+
+    <br><br>
+
+    <button id="convertBtn">
+
+        Convert Excel
+
+    </button>
+
+    <br><br>
+
+    <div id="status">
+
+        Waiting...
+
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+
+<script src="converter.js"></script>
+
+</body>
+</html>
