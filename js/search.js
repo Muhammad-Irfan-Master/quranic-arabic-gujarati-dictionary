@@ -1,3 +1,4 @@
+alert("search.js Loaded");
 let dictionary = [];
 
 // Result Box
