@@ -13,7 +13,14 @@ fetch("data/database.json")
 
         dictionary = data;
 
+        console.log("✅ Database Loaded:", dictionary.length);
+
         document.getElementById("wordCount").textContent = dictionary.length;
+
+    })
+    .catch(error => {
+
+        console.error("❌ Database Error:", error);
 
     });
 
