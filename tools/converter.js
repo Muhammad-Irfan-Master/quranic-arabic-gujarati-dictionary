@@ -34,7 +34,8 @@ button.addEventListener("click", () => {
         Sheet : ${sheetName}
         `;
 
-        console.log(json);
+       // console.log(json);
+        console.table(Object.keys(surahs));
         // ----------------------------
 // Build Search Index
 // ----------------------------
