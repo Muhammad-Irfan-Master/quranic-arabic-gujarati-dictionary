@@ -35,6 +35,51 @@ button.addEventListener("click", () => {
         `;
 
         console.log(json);
+        // ----------------------------
+// Build Search Index
+// ----------------------------
+
+const indexData = json.map(row => ({
+
+    word: row["word"],
+
+    plain: row["Plan Arabic"],
+
+    pronunciation: row["pronunciation"],
+
+    meaning: row["meaning"],
+
+    chapter: row["chapter"],
+
+    verse_key: row["verse_key"]
+
+}));
+
+
+status.innerHTML += "<br>✅ Search Index Created";
+        // ----------------------------
+// Group by Surah
+// ----------------------------
+
+const surahs = {};
+
+json.forEach(row=>{
+
+    const chapter = String(row["chapter"]).padStart(3,"0");
+
+    if(!surahs[chapter]){
+
+        surahs[chapter]=[];
+
+    }
+
+    surahs[chapter].push(row);
+
+});
+
+status.innerHTML +=
+"<br>✅ Surahs Grouped : "+
+Object.keys(surahs).length;
 const jsonString = JSON.stringify(json, null, 2);
 
 const blob = new Blob([jsonString], {
