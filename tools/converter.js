@@ -25,7 +25,9 @@ button.addEventListener("click", () => {
 
         const worksheet = workbook.Sheets[sheetName];
 
-        const json = XLSX.utils.sheet_to_json(worksheet);
+      const json = XLSX.utils.sheet_to_json(worksheet, {
+    defval: ""
+});
 
         status.innerHTML =
         `
@@ -81,6 +83,7 @@ json.forEach(row=>{
 status.innerHTML +=
 "<br>✅ Surahs Grouped : "+
 Object.keys(surahs).length;
+console.table(Object.keys(surahs));
 const jsonString = JSON.stringify(json, null, 2);
 
 const blob = new Blob([jsonString], {
@@ -104,4 +107,4 @@ status.innerHTML += "<br><br>✅ database.json Downloaded";
     reader.readAsArrayBuffer(file);
 
 });
-console.log(Object.keys(surahs));
+
