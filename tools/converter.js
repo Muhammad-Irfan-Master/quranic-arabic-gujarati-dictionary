@@ -65,7 +65,7 @@ const surahs = {};
 
 json.forEach(row=>{
 
-    const chapter = String(row["chapter"]).padStart(3,"0");
+  const chapter = String(row["chapter"]).trim().padStart(3, "0");
 
     if(!surahs[chapter]){
 
@@ -103,3 +103,4 @@ status.innerHTML += "<br><br>✅ database.json Downloaded";
     reader.readAsArrayBuffer(file);
 
 });
+console.log(Object.keys(surahs));
