@@ -405,3 +405,20 @@ margin-top:70px;
 text-align:center;
 
 }
+/* ==========================
+SEARCH RESULTS
+========================== */
+
+.search-results{
+
+    padding:20px 0 50px;
+
+}
+
+#results{
+
+    max-width:900px;
+
+    margin:auto;
+
+}
