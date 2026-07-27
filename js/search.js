@@ -63,7 +63,7 @@ function showResults(results){
 
     if(results.length===0){
 
-        resultBox.innerHTML="<p>No Result Found</p>";
+        resultBox.innerHTML="<h3>No Result Found</h3>";
 
         return;
 
@@ -75,19 +75,55 @@ function showResults(results){
 
         html+=`
 
-        <div class="result-card">
+<div class="result-card">
 
-            <h2>${item.word}</h2>
+<div class="arabic">
 
-            <p><strong>Gujarati :</strong> ${item.meaning || "-"}</p>
+${item.word}
 
-            <p><strong>Pronunciation :</strong> ${item.pronunciation || "-"}</p>
+</div>
 
-            <p><strong>Verse :</strong> ${item.verse_key}</p>
+<div class="plain">
 
-        </div>
+${item.plain}
 
-        `;
+</div>
+
+<div class="result-row">
+
+<strong>🔊 ઉચ્ચાર :</strong>
+
+${item.pronunciation || "-"}
+
+</div>
+
+<div class="result-row">
+
+<strong>📖 ગુજરાતી અર્થ :</strong>
+
+${item.meaning || "-"}
+
+</div>
+
+<div class="result-row">
+
+<strong>📚 Surah :</strong>
+
+${item.chapter}
+
+</div>
+
+<div class="result-row">
+
+<strong>🕌 Para :</strong>
+
+${item.para || "-"}
+
+</div>
+
+</div>
+
+`;
 
     });
 
