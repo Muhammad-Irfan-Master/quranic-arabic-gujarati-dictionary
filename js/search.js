@@ -27,17 +27,7 @@ populateFilters();
     });
 
 // Search
-searchInput.addEventListener("input", function () {
-
-    const keyword = this.value.trim();
-
-    if (keyword === "") {
-
-        resultBox.innerHTML = "";
-
-        return;
-
-    }
+searchInput.addEventListener("input", applyFilters);
 
     const results = dictionary.filter(item =>
 
@@ -172,5 +162,53 @@ console.log(dictionary.length);
         paraSelect.appendChild(option);
 
     });
+surahSelect.addEventListener("change", applyFilters);
+paraSelect.addEventListener("change", applyFilters);
+}
+function applyFilters() {
+
+    const selectedSurah = document.getElementById("surahFilter").value;
+    const selectedPara = document.getElementById("paraFilter").value;
+    const keyword = document.getElementById("searchInput").value.trim();
+
+    let results = dictionary;
+
+    // Search Filter
+    if (keyword !== "") {
+
+        results = results.filter(item =>
+
+            (item.word || "").includes(keyword) ||
+            (item.plain || "").includes(keyword) ||
+            (item.pronunciation || "").includes(keyword) ||
+            (item.meaning || "").includes(keyword)
+
+        );
+
+    }
+
+    // Surah Filter
+    if (selectedSurah !== "") {
+
+        results = results.filter(item =>
+
+            String(item.chapter) === selectedSurah
+
+        );
+
+    }
+
+    // Para Filter
+    if (selectedPara !== "") {
+
+        results = results.filter(item =>
+
+            String(item.para) === selectedPara
+
+        );
+
+    }
+
+    showResults(results);
 
 }
