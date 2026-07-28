@@ -10,15 +10,16 @@ const searchInput = document.getElementById("searchInput");
 // Database Load
 fetch("data/database.json")
     .then(response => response.json())
-    .then(data => {
+  .then(data => {
 
-        dictionary = data;
+    dictionary = data;
 
-        console.log("✅ Database Loaded:", dictionary.length);
+    document.getElementById("wordCount").textContent = dictionary.length;
 
-        document.getElementById("wordCount").textContent = dictionary.length;
+    // صفحہ کھلتے ہی پہلے 100 الفاظ دکھاؤ
+    showResults(dictionary.slice(0,100));
 
-    })
+});
     .catch(error => {
 
         console.error("❌ Database Error:", error);
