@@ -1,9 +1,9 @@
 // =====================================
 // Quranic Arabic Gujarati Dictionary
-// Version 2 (Fixed & Corrected)
+// Complete & Fixed search.js
 // =====================================
 
-// Database
+// Global Database Variable
 let dictionary = [];
 
 // DOM Elements
@@ -12,36 +12,44 @@ const searchInput = document.getElementById("searchInput");
 const surahFilter = document.getElementById("surahFilter");
 const paraFilter = document.getElementById("paraFilter");
 
-// ----------------------------
-// 1. Load Database & Populate Filters
-// ----------------------------
+// -------------------------------------
+// 1. Database Load & Initialize
+// -------------------------------------
 async function loadDatabase() {
     try {
         const response = await fetch("data/database.json");
         dictionary = await response.json();
 
-        // کولیکشن میں کُل الفاظ کی تعداد دکھائیں
+        // کُل الفاظ کی تعداد اسکرین پر دکھائیں
         const wordCountElem = document.getElementById("wordCount");
         if (wordCountElem) {
             wordCountElem.textContent = dictionary.length;
         }
 
-        // Dropdowns کو ڈیٹا بیس سے خودکار طریقے سے بھریں
+        // سورت اور پارہ کے ڈراپ ڈاؤن لسٹ تیار کریں
         populateFilters();
 
-        // شروعاتی رزلٹ دکھائیں
+        // شروع میں تمام یا شروعاتی الفاظ اسکرین پر دکھائیں
         applyFilters();
+
     } catch (error) {
         console.error("Database Error:", error);
-        resultBox.innerHTML = `<div class="no-result"><h3>డేటా لوڈ کرنے میں خطا آئے ہے (Database Error)</h3></div>`;
+        if (resultBox) {
+            resultBox.innerHTML = `
+                <div class="no-result">
+                    <h3>ڈیٹا بیس لوڈ کرنے میں مسئلہ آیا ہے (Database Load Error)</h3>
+                </div>`;
+        }
     }
 }
 
-// Dropdowns (Surah & Para) میں اختیارات (Options) بھرنے کا فنکشن
+// -------------------------------------
+// 2. Populate Surah & Para Dropdowns
+// -------------------------------------
 function populateFilters() {
     if (!surahFilter || !paraFilter) return;
 
-    // تمام سورتیں اور پارے نکال کر Unique (Unique List) بنائیں
+    // ڈیٹا بیس سے تمام سورتوں اور پاروں کی الگ لسٹ تیار کریں
     const surahs = [...new Set(dictionary.map(item => item.chapter))].filter(Boolean).sort((a, b) => a - b);
     const paras = [...new Set(dictionary.map(item => item.para))].filter(Boolean).sort((a, b) => a - b);
 
@@ -58,19 +66,17 @@ function populateFilters() {
     });
 }
 
-loadDatabase();
-
-// ----------------------------
-// 2. Search & Apply Filters
-// ----------------------------
+// -------------------------------------
+// 3. Search and Apply Filters
+// -------------------------------------
 function applyFilters() {
-    const keyword = searchInput.value.trim().toLowerCase();
-    const selectedSurah = surahFilter.value;
-    const selectedPara = paraFilter.value;
+    const keyword = searchInput ? searchInput.value.trim().toLowerCase() : "";
+    const selectedSurah = surahFilter ? surahFilter.value : "";
+    const selectedPara = paraFilter ? paraFilter.value : "";
 
     let results = dictionary;
 
-    // --- Search Input (الفاظ، گجراتی تلفظ، معنی، سورت یا پارہ نمبر) ---
+    // --- 1. سرچ بار فلٹر ---
     if (keyword !== "") {
         results = results.filter(item => {
             const arabic = String(item.word || "").toLowerCase();
@@ -85,40 +91,36 @@ function applyFilters() {
                 plain.includes(keyword) ||
                 guPron.includes(keyword) ||
                 guMeaning.includes(keyword) ||
-                chapter === keyword || // سرچ بار میں سورت نمبر لکھنے پر
-                para === keyword      // سرچ بار میں پارہ نمبر لکھنے پر
+                chapter === keyword ||
+                para === keyword
             );
         });
     }
 
-    // --- Surah Filter ---
+    // --- 2. سورت فلٹر ---
     if (selectedSurah !== "") {
         results = results.filter(item => String(item.chapter) === String(selectedSurah));
     }
 
-    // --- Para Filter ---
+    // --- 3. پارہ فلٹر ---
     if (selectedPara !== "") {
         results = results.filter(item => String(item.para) === String(selectedPara));
     }
 
+    // نتائج کو اسکرین پر شو کریں
     showResults(results);
 }
 
-// Event Listeners
-searchInput.addEventListener("input", applyFilters);
-surahFilter.addEventListener("change", applyFilters);
-paraFilter.addEventListener("change", applyFilters);
-
-// ----------------------------
-// 3. Display Results
-// ----------------------------
+// -------------------------------------
+// 4. Display Results on Screen (UI)
+// -------------------------------------
 function showResults(results) {
     if (!resultBox) return;
 
-    // اگر کوئی Result نہ ملے
+    // اگر کوئی نتیجہ نہ ملے
     if (results.length === 0) {
         resultBox.innerHTML = `
-            <div class="no-result">
+            <div class="no-result" style="text-align:center; padding: 20px;">
                 <h3>No Result Found / کوئی نتیجہ نہیں ملا</h3>
             </div>
         `;
@@ -127,28 +129,24 @@ function showResults(results) {
 
     let html = "";
 
-    // شروعاتی 50 نتائج دکھائیں تاکہ پیج ہینگ (Hang) نہ ہو
+    // صفحہ زیادہ بھاری نہ ہو، اس لیے شروعاتی 50 نتائج دکھائیں
     results.slice(0, 50).forEach(item => {
         html += `
         <div class="result-card">
             <div class="arabic-word">
-                ${item.word}
+                ${item.word || ""}
             </div>
             <div class="result-row">
-                <strong>🔊 ગુજરાતી ઉચ્ચાર :</strong>
-                ${item.pronunciation_gu || "-"}
+                <strong>🔊 ગુજરાતી ઉચ્ચાર :</strong> ${item.pronunciation_gu || "-"}
             </div>
             <div class="result-row">
-                <strong>📖 ગુજરાતી અર્થ :</strong>
-                ${item.meaning_gu || "-"}
+                <strong>📖 ગુજરાતી અર્થ :</strong> ${item.meaning_gu || "-"}
             </div>
             <div class="result-row">
-                <strong>📚 Surah :</strong>
-                ${item.chapter || "-"}
+                <strong>📚 Surah :</strong> ${item.chapter || "-"}
             </div>
             <div class="result-row">
-                <strong>🕌 Para :</strong>
-                ${item.para || "-"}
+                <strong>🕌 Para :</strong> ${item.para || "-"}
             </div>
         </div>
         `;
@@ -156,3 +154,13 @@ function showResults(results) {
 
     resultBox.innerHTML = html;
 }
+
+// -------------------------------------
+// 5. Event Listeners & Start
+// -------------------------------------
+if (searchInput) searchInput.addEventListener("input", applyFilters);
+if (surahFilter) surahFilter.addEventListener("change", applyFilters);
+if (paraFilter) paraFilter.addEventListener("change", applyFilters);
+
+// ایپلیکیشن شروع کریں
+loadDatabase();
