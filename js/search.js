@@ -110,7 +110,7 @@ if (keyword !== "") {
         );
 
     }
-
+console.log(results);
     showResults(results);
 
 }
