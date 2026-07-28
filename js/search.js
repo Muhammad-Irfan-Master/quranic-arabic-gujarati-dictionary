@@ -119,3 +119,82 @@ searchInput.addEventListener("input",applyFilters);
 surahFilter.addEventListener("change",applyFilters);
 
 paraFilter.addEventListener("change",applyFilters);
+// =====================================
+// Part 3
+// Show Results
+// =====================================
+
+function showResults(results){
+
+    // اگر کوئی Result نہ ہو
+    if(results.length===0){
+
+        resultBox.innerHTML=`
+
+        <div class="no-result">
+
+            <h3>No Result Found</h3>
+
+        </div>
+
+        `;
+
+        return;
+
+    }
+
+    let html="";
+
+    results.slice(0,50).forEach(item=>{
+
+        html+=`
+
+<div class="result-card">
+
+    <div class="arabic-word">
+
+        ${item.word}
+
+    </div>
+
+    <div class="result-row">
+
+        <strong>🔊 ગુજરાતી ઉચ્ચાર :</strong>
+
+        ${item.pronunciation_gu || "-"}
+
+    </div>
+
+    <div class="result-row">
+
+        <strong>📖 ગુજરાતી અર્થ :</strong>
+
+        ${item.meaning_gu || "-"}
+
+    </div>
+
+    <div class="result-row">
+
+        <strong>📚 Surah :</strong>
+
+        ${item.chapter}
+
+    </div>
+
+    <div class="result-row">
+
+        <strong>🕌 Para :</strong>
+
+        ${item.para}
+
+    </div>
+
+</div>
+
+`;
+
+    });
+
+    resultBox.innerHTML=html;
+
+}
