@@ -18,7 +18,7 @@ fetch("data/database.json")
 
     // صفحہ کھلتے ہی پہلے 100 الفاظ دکھاؤ
     showResults(dictionary.slice(0,100));
-
+populateFilters();
 });
     .catch(error => {
 
@@ -129,5 +129,47 @@ ${item.para || "-"}
     });
 
     resultBox.innerHTML=html;
+
+}
+function populateFilters() {
+
+    const surahSelect = document.getElementById("surahFilter");
+    const paraSelect = document.getElementById("paraFilter");
+
+    if (!surahSelect || !paraSelect) return;
+
+    // ===== Surahs =====
+
+    const surahs = [...new Set(dictionary.map(item => item.chapter))]
+        .sort((a,b)=>a-b);
+
+    surahs.forEach(chapter => {
+
+        const option = document.createElement("option");
+
+        option.value = chapter;
+
+        option.textContent = "Surah " + chapter;
+
+        surahSelect.appendChild(option);
+
+    });
+
+    // ===== Paras =====
+
+    const paras = [...new Set(dictionary.map(item => item.para))]
+        .sort((a,b)=>a-b);
+
+    paras.forEach(para => {
+
+        const option = document.createElement("option");
+
+        option.value = para;
+
+        option.textContent = "Para " + para;
+
+        paraSelect.appendChild(option);
+
+    });
 
 }
