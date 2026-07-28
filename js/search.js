@@ -19,7 +19,7 @@ fetch("data/database.json")
     // صفحہ کھلتے ہی پہلے 100 الفاظ دکھاؤ
     showResults(dictionary.slice(0,100));
 populateFilters();
-});
+})
     .catch(error => {
 
         console.error("❌ Database Error:", error);
