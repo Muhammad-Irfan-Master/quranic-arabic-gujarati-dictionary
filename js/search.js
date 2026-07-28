@@ -132,7 +132,8 @@ ${item.para || "-"}
 
 }
 function populateFilters() {
-
+console.log(dictionary[0]);
+console.log(dictionary.length);
     const surahSelect = document.getElementById("surahFilter");
     const paraSelect = document.getElementById("paraFilter");
 
