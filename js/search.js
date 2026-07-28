@@ -29,7 +29,7 @@ async function loadDatabase(){
 
       // populateFilters();
 
-        applyFilters();
+      //  applyFilters();
 
     }
 
