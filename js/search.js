@@ -27,7 +27,7 @@ async function loadDatabase(){
 
         document.getElementById("wordCount").textContent = dictionary.length;
 
-        populateFilters();
+      // populateFilters();
 
         applyFilters();
 
