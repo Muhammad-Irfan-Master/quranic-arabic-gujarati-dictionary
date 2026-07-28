@@ -1,195 +1,121 @@
-alert("search.js Loaded");
+// =====================================
+// Quranic Arabic Gujarati Dictionary
+// Version 2
+// Part 1
+// =====================================
+
+// Database
 let dictionary = [];
 
-// Result Box
+// DOM
 const resultBox = document.getElementById("results");
-
-// Search Input
 const searchInput = document.getElementById("searchInput");
+const surahFilter = document.getElementById("surahFilter");
+const paraFilter = document.getElementById("paraFilter");
 
-// Database Load
-fetch("data/database.json")
-    .then(response => response.json())
-  .then(data => {
+// ----------------------------
+// Load Database
+// ----------------------------
 
-    dictionary = data;
+async function loadDatabase(){
 
-    document.getElementById("wordCount").textContent = dictionary.length;
+    try{
 
-    // صفحہ کھلتے ہی پہلے 100 الفاظ دکھاؤ
-    showResults(dictionary.slice(0,100));
-populateFilters();
-})
-    .catch(error => {
+        const response = await fetch("data/database.json");
 
-        console.error("❌ Database Error:", error);
+        dictionary = await response.json();
 
-    });
+        document.getElementById("wordCount").textContent = dictionary.length;
 
-// Search
+        populateFilters();
 
-searchInput.addEventListener("input", applyFilters);
-
-// ---------------------------
-// Show Results
-// ---------------------------
-
-function showResults(results){
-
-    if(results.length===0){
-
-        resultBox.innerHTML="<h3>No Result Found</h3>";
-
-        return;
+        applyFilters();
 
     }
 
-    let html="";
+    catch(error){
 
-    results.slice(0,30).forEach(item=>{
+        console.error("Database Error:", error);
 
-        html+=`
-
-<div class="result-card">
-
-<div class="arabic">
-
-${item.word}
-
-</div>
-
-
-
-<div class="result-row">
-
-<strong>🔊 ઉચ્ચાર :</strong>
-
-${item.pronunciation || "-"}
-
-</div>
-
-<div class="result-row">
-
-<strong>📖 ગુજરાતી અર્થ :</strong>
-
-${item.meaning || "-"}
-
-</div>
-
-<div class="result-row">
-
-<strong>📚 Surah :</strong>
-
-${item.chapter}
-
-</div>
-
-<div class="result-row">
-
-<strong>🕌 Para :</strong>
-
-${item.para || "-"}
-
-</div>
-
-</div>
-
-`;
-
-    });
-
-    resultBox.innerHTML=html;
+    }
 
 }
-function populateFilters() {
-console.log(dictionary[0]);
-console.log(dictionary.length);
-    const surahSelect = document.getElementById("surahFilter");
-    const paraSelect = document.getElementById("paraFilter");
 
-    if (!surahSelect || !paraSelect) return;
+loadDatabase();
+// =====================================
+// Part 2
+// Search + Filters
+// =====================================
 
-    // ===== Surahs =====
+function applyFilters(){
 
-    const surahs = [...new Set(dictionary.map(item => item.chapter))]
-        .sort((a,b)=>a-b);
+    const keyword = searchInput.value.trim().toLowerCase();
 
-    surahs.forEach(chapter => {
+    const selectedSurah = surahFilter.value;
 
-        const option = document.createElement("option");
-
-        option.value = chapter;
-
-        option.textContent = "Surah " + chapter;
-
-        surahSelect.appendChild(option);
-
-    });
-
-    // ===== Paras =====
-
-    const paras = [...new Set(dictionary.map(item => item.para))]
-        .sort((a,b)=>a-b);
-
-    paras.forEach(para => {
-
-        const option = document.createElement("option");
-
-        option.value = para;
-
-        option.textContent = "Para " + para;
-
-        paraSelect.appendChild(option);
-
-    });
-surahSelect.addEventListener("change", applyFilters);
-paraSelect.addEventListener("change", applyFilters);
-}
-function applyFilters() {
-
-    const selectedSurah = document.getElementById("surahFilter").value;
-    const selectedPara = document.getElementById("paraFilter").value;
-    const keyword = document.getElementById("searchInput").value.trim();
+    const selectedPara = paraFilter.value;
 
     let results = dictionary;
 
-    // Search Filter
-    if (keyword !== "") {
+    // ------------------------
+    // Search
+    // ------------------------
 
-        results = results.filter(item =>
+    if(keyword !== ""){
 
-            (item.word || "").includes(keyword) ||
-            (item.plain || "").includes(keyword) ||
-            (item.pronunciation || "").includes(keyword) ||
-            (item.meaning || "").includes(keyword)
+        results = results.filter(item=>{
 
-        );
+            return (
+
+                (item.word || "").includes(keyword) ||
+
+                (item.plain || "").includes(keyword) ||
+
+                (item.pronunciation_gu || "").toLowerCase().includes(keyword) ||
+
+                (item.meaning_gu || "").toLowerCase().includes(keyword)
+
+            );
+
+        });
 
     }
 
+    // ------------------------
     // Surah Filter
-    if (selectedSurah !== "") {
+    // ------------------------
 
-        results = results.filter(item =>
+    if(selectedSurah !== ""){
 
-            String(item.chapter) === selectedSurah
+        results = results.filter(item=>
+
+            String(item.chapter)===selectedSurah
 
         );
 
     }
 
+    // ------------------------
     // Para Filter
-    if (selectedPara !== "") {
+    // ------------------------
 
-        results = results.filter(item =>
+    if(selectedPara !== ""){
 
-            String(item.para) === selectedPara
+        results = results.filter(item=>
+
+            String(item.para)===selectedPara
 
         );
 
     }
-console.log(results.length);
-console.log(results);
+
     showResults(results);
 
 }
+// Events
+
+searchInput.addEventListener("input",applyFilters);
+
+surahFilter.addEventListener("change",applyFilters);
+
+paraFilter.addEventListener("change",applyFilters);
