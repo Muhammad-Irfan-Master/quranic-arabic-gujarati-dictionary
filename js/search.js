@@ -57,29 +57,31 @@ function applyFilters(){
 
     let results = dictionary;
 
-    // ------------------------
-    // Search
-    // ------------------------
+   // ------------------------
+// Search
+// ------------------------
 
-    if(keyword !== ""){
+if (keyword !== "") {
 
-        results = results.filter(item=>{
+    results = results.filter(item => {
 
-            return (
+        const arabic = String(item.word || "");
+        const plain = String(item.plain || "");
+        const guPron = String(item.pronunciation_gu || "");
+        const guMeaning = String(item.meaning_gu || "");
 
-                (item.word || "").includes(keyword) ||
+        return (
 
-                (item.plain || "").includes(keyword) ||
+            arabic.includes(keyword) ||
+            plain.includes(keyword) ||
+            guPron.includes(keyword) ||
+            guMeaning.includes(keyword)
 
-                (item.pronunciation_gu || "").toLowerCase().includes(keyword) ||
+        );
 
-                (item.meaning_gu || "").toLowerCase().includes(keyword)
+    });
 
-            );
-
-        });
-
-    }
+}
 
     // ------------------------
     // Surah Filter
