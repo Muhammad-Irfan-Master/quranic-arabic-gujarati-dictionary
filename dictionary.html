@@ -1,19 +1,321 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<title>Dictionary</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="css/style.css">
+    <title>Quranic Arabic–Gujarati Dictionary</title>
+
+    <meta name="description"
+          content="Free Quranic Arabic to Gujarati Dictionary">
+
+    <meta name="keywords"
+          content="Quran Dictionary, Arabic Gujarati Dictionary, Quran Words">
+
+    <meta name="author"
+          content="Muhammad Irfan Master">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Google Fonts -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap"
+          rel="stylesheet">
 
 </head>
 
 <body>
 
-<h1>Dictionary Page</h1>
+<!-- ===========================
+HEADER
+=========================== -->
+
+<header>
+
+    <div class="container">
+
+        <div class="logo">
+
+            📖
+
+            <div>
+
+                <h1>
+
+                    Quranic Arabic–Gujarati Dictionary
+
+                </h1>
+
+                <span>
+
+                    Learn Quran Word by Word
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <nav>
+
+            <ul>
+
+<li><a href="index.html">Home</a></li>
+<li><a href="dictionary.html">Dictionary</a></li>
+<li><a href="surahs.html">Surahs</a></li>
+<li><a href="paras.html">Paras</a></li>
+<li><a href="about.html">About</a></li>
+
+            </ul>
+
+        </nav>
+
+    </div>
+
+</header>
+
+<!-- ===========================
+HERO
+=========================== -->
+
+<section class="hero">
+
+    <div class="container">
+
+        <h2>
+
+           Quranic Arabic–Gujarati Dictionary
+
+        </h2>
+
+        <p>
+
+           Search any Quranic Arabic word and view its Gujarati pronunciation and meaning.
+
+        </p>
+
+<!-- SEARCH -->
+
+<div class="search-box">
+
+<input
+type="text"
+id="searchInput"
+placeholder="Search Arabic Word...">
+
+<button id="searchBtn">
+
+Search
+
+</button>
+
+</div>
+
+    </div>
+
+</section>
+<!-- ===========================
+SEARCH RESULTS
+=========================== -->
+
+<section class="search-results">
+
+    <div class="container">
+
+        <div id="results">
+
+            <!-- Search Results یہاں آئیں گے -->
+
+        </div>
+
+    </div>
+
+</section>
+<!-- ===========================
+STATISTICS
+=========================== -->
+
+<section class="statistics">
+
+<div class="container">
+
+<div class="card">
+
+<h3>
+
+Words
+
+</h3>
+
+<p id="wordCount">
+
+0
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+Roots
+
+</h3>
+
+<p>
+
+0
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+Surahs
+
+</h3>
+
+<p>
+
+114
+
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+Paras
+
+</h3>
+
+<p>
+
+30
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- Popular Words یہاں سے اگلے حصے میں شروع ہوں گے -->
+<!-- ===========================
+POPULAR WORDS
+=========================== -->
+
+<section class="popular">
+
+    <div class="container">
+
+        <h2>Popular Quran Words</h2>
+
+        <div class="word-list">
+
+            <span class="word">الله</span>
+            <span class="word">الرحمن</span>
+            <span class="word">الرحيم</span>
+            <span class="word">كتاب</span>
+            <span class="word">إيمان</span>
+            <span class="word">نور</span>
+            <span class="word">جنة</span>
+            <span class="word">نار</span>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ===========================
+FEATURES
+=========================== -->
+
+<section class="features">
+
+    <div class="container">
+
+        <h2>Features</h2>
+
+        <div class="feature-grid">
+
+            <div class="feature-box">
+
+                <h3>🔍 Fast Search</h3>
+
+                <p>Instant Arabic word search.</p>
+
+            </div>
+
+            <div class="feature-box">
+
+                <h3>📖 Gujarati Meaning</h3>
+
+                <p>Simple and accurate meanings.</p>
+
+            </div>
+
+            <div class="feature-box">
+
+                <h3>🌱 Root Explorer</h3>
+
+                <p>Find words by Arabic roots.</p>
+
+            </div>
+
+            <div class="feature-box">
+
+                <h3>📱 Mobile Friendly</h3>
+
+                <p>Works beautifully on all devices.</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
+
+    <div class="container">
+
+        <p>
+
+            © 2026 Quranic Arabic–Gujarati Dictionary
+
+        </p>
+
+    </div>
+
+</footer>
+<script src="js/app.js"></script>
+<script src="js/search.js"></script>
 
 </body>
 
