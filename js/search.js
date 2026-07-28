@@ -27,24 +27,8 @@ populateFilters();
     });
 
 // Search
+
 searchInput.addEventListener("input", applyFilters);
-
-    const results = dictionary.filter(item =>
-
-        (item.word || "").includes(keyword) ||
-
-        (item.plain || "").includes(keyword) ||
-
-        (item.pronunciation || "").includes(keyword) ||
-
-        (item.meaning || "").includes(keyword)
-
-    );
-
-    showResults(results);
-
-});
-
 
 // ---------------------------
 // Show Results
@@ -74,11 +58,7 @@ ${item.word}
 
 </div>
 
-<div class="plain">
 
-${item.plain}
-
-</div>
 
 <div class="result-row">
 
