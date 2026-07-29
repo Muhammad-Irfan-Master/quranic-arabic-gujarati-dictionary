@@ -148,21 +148,31 @@ function validateData(rows) {
 
 function buildIndex(rows) {
 
-    return rows.map(row => ({
+   return rows.map(row => ({
 
-        word: row["word"],
+    word_id: Number(row["word_id"]),
 
-        plain: row["plain"],
+    verse_id: row["verse_id"],
 
-        pronunciation_gu: row["pronunciation_gu"],
+    verse_key: row["verse_key"],
 
-        meaning_gu: row["meaning_gu"],
+    word: row["word"],
 
-        chapter: Number(row["chapter"]),
+    plain: row["plain"],
 
-        verse_key: row["verse_key"]
+    pronunciation_gu: row["pronunciation_gu"],
 
-    }));
+    meaning_gu: row["meaning_gu"],
+
+    chapter: Number(row["chapter"]),
+
+    para: Number(row["para"]),
+
+    surah_ruku: Number(row["surah_ruku"]),
+
+    para_ruku: Number(row["para_ruku"])
+
+}));
 
 }
 
