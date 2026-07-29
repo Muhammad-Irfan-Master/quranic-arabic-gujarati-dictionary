@@ -120,7 +120,7 @@ function cleanRows(rows) {
         return (
 
             row["word"] !== "" &&
-            row["Plan Arabic"] !== "" &&
+            row["plain"] !== "" &&
             chapter >= 1 &&
             chapter <= 114
 
@@ -152,11 +152,11 @@ function buildIndex(rows) {
 
         word: row["word"],
 
-        plain: row["Plan Arabic"],
+        plain: row["plain"],
 
-        pronunciation: row["pronunciation"],
+        pronunciation_gu: row["pronunciation_gu"],
 
-        meaning: row["meaning"],
+        meaning_gu: row["meaning_gu"],
 
         chapter: Number(row["chapter"]),
 
