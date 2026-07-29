@@ -17,65 +17,88 @@ button.addEventListener("click", () => {
 
     reader.onload = function (e) {
 
-        const data = new Uint8Array(e.target.result);
+        try {
 
-        const workbook = XLSX.read(data, { type: "array" });
+            const data = new Uint8Array(e.target.result);
 
-        const sheetName = workbook.SheetNames[0];
-        const worksheet = workbook.Sheets[sheetName];
+            const workbook = XLSX.read(data, { type: "array" });
 
-        const rows = XLSX.utils.sheet_to_json(worksheet, {
-            defval: ""
-        });
+            const sheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[sheetName];
 
-        status.innerHTML = `
-            ✅ Total Rows : ${rows.length}
-            <br>
-            📄 Sheet : ${sheetName}
-        `;
+            const rows = XLSX.utils.sheet_to_json(worksheet, {
+                defval: ""
+            });
 
-        // Step 1 : Clean Data
-        const cleanData = cleanRows(rows);
+            status.innerHTML = `
+                ✅ Total Rows : ${rows.length}
+                <br>
+                📄 Sheet : ${sheetName}
+            `;
 
-        // Step 2 : Validation
-        validateData(cleanData);
+            // ===============================
+            // Clean Data
+            // ===============================
 
-        // Step 3 : Search Index
-        const indexData = buildIndex(cleanData);
+            const cleanData = cleanRows(rows);
 
-        status.innerHTML += `<br>🔍 Search Index : ${indexData.length}`;
+            // ===============================
+            // Validation
+            // ===============================
 
-        // Step 4 : Group by Surah
-        const surahFiles = buildSurahFiles(cleanData);
+            validateData(cleanData);
 
-        status.innerHTML += `<br>📖 Surahs : ${Object.keys(surahFiles).length}`;
-// ===============================
-// Download database.json
-// ===============================
+            // ===============================
+            // Search Index
+            // ===============================
 
-const jsonData = JSON.stringify(cleanData, null, 2);
+            const indexData = buildIndex(cleanData);
 
-const blob = new Blob([jsonData], {
-    type: "application/json"
-});
+            status.innerHTML += `<br>🔍 Search Index : ${indexData.length}`;
 
-const url = URL.createObjectURL(blob);
+            // ===============================
+            // Surah Files
+            // ===============================
 
-const a = document.createElement("a");
+            const surahFiles = buildSurahFiles(cleanData);
 
-a.href = url;
-a.download = "database.json";
+            status.innerHTML += `<br>📖 Surahs : ${Object.keys(surahFiles).length}`;
 
-document.body.appendChild(a);
+            // ===============================
+            // Download database.json
+            // ===============================
 
-a.click();
+            const jsonData = JSON.stringify(cleanData, null, 2);
 
-document.body.removeChild(a);
+            const blob = new Blob(
+                [jsonData],
+                { type: "application/json" }
+            );
 
-URL.revokeObjectURL(url);
+            const url = URL.createObjectURL(blob);
 
-status.innerHTML += "<br>✅ database.json Downloaded";
-        // اگلے مرحلے میں یہاں ZIP اور JSON بنیں گی
+            const a = document.createElement("a");
+
+            a.href = url;
+            a.download = "database.json";
+
+            document.body.appendChild(a);
+
+            a.click();
+
+            document.body.removeChild(a);
+
+            URL.revokeObjectURL(url);
+
+            status.innerHTML += "<br>✅ database.json Downloaded";
+
+        } catch (err) {
+
+            console.error(err);
+
+            status.innerHTML = "❌ Error : " + err.message;
+
+        }
 
     };
 
@@ -84,9 +107,9 @@ status.innerHTML += "<br>✅ database.json Downloaded";
 });
 
 
-// ===============================
-// Clean Data
-// ===============================
+// =====================================
+// Clean Rows
+// =====================================
 
 function cleanRows(rows) {
 
@@ -95,10 +118,12 @@ function cleanRows(rows) {
         const chapter = Number(row["chapter"]);
 
         return (
+
             row["word"] !== "" &&
             row["Plan Arabic"] !== "" &&
             chapter >= 1 &&
             chapter <= 114
+
         );
 
     });
@@ -106,9 +131,9 @@ function cleanRows(rows) {
 }
 
 
-// ===============================
+// =====================================
 // Validation
-// ===============================
+// =====================================
 
 function validateData(rows) {
 
@@ -117,9 +142,9 @@ function validateData(rows) {
 }
 
 
-// ===============================
-// Build Search Index
-// ===============================
+// =====================================
+// Search Index
+// =====================================
 
 function buildIndex(rows) {
 
@@ -142,9 +167,9 @@ function buildIndex(rows) {
 }
 
 
-// ===============================
+// =====================================
 // Build Surah Files
-// ===============================
+// =====================================
 
 function buildSurahFiles(rows) {
 
@@ -155,7 +180,9 @@ function buildSurahFiles(rows) {
         const chapter = String(row["chapter"]).padStart(3, "0");
 
         if (!surahs[chapter]) {
+
             surahs[chapter] = [];
+
         }
 
         surahs[chapter].push(row);
