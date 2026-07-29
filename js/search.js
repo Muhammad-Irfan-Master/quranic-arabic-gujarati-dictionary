@@ -158,9 +158,87 @@ function showResults(results) {
 // -------------------------------------
 // 5. Event Listeners & Start
 // -------------------------------------
-if (searchInput) searchInput.addEventListener("input", applyFilters);
+// if (searchInput) searchInput.addEventListener("input", applyFilters);
 if (surahFilter) surahFilter.addEventListener("change", applyFilters);
 if (paraFilter) paraFilter.addEventListener("change", applyFilters);
 
 // ایپلیکیشن شروع کریں
 loadDatabase();
+// =====================================
+// AUTOCOMPLETE
+// =====================================
+
+const suggestionBox = document.getElementById("suggestions");
+
+searchInput.addEventListener("input", showSuggestions);
+
+function showSuggestions() {
+
+    const keyword = searchInput.value.trim();
+
+    if (keyword === "") {
+        suggestionBox.style.display = "none";
+        suggestionBox.innerHTML = "";
+        applyFilters();
+        return;
+    }
+
+    const results = dictionary.filter(item =>
+
+        (item.word || "").includes(keyword) ||
+        (item.plain || "").includes(keyword) ||
+        (item.pronunciation_gu || "").includes(keyword) ||
+        (item.meaning_gu || "").includes(keyword)
+
+    ).slice(0,10);
+
+    if (results.length === 0) {
+
+        suggestionBox.style.display = "none";
+        suggestionBox.innerHTML = "";
+        return;
+
+    }
+
+    let html = "";
+
+    results.forEach(item => {
+
+        html += `
+        <div class="suggestion-item"
+             onclick="selectWord('${item.word.replace(/'/g,"\\'")}')">
+
+            ${item.word}
+
+        </div>
+        `;
+
+    });
+
+    suggestionBox.innerHTML = html;
+    suggestionBox.style.display = "block";
+
+}
+
+function selectWord(word){
+
+    searchInput.value = word;
+
+    suggestionBox.style.display = "none";
+
+    applyFilters();
+
+}
+
+// باہر Click کرنے پر List بند ہو جائے
+
+document.addEventListener("click",function(e){
+
+    if(!e.target.closest(".search-box") &&
+       !e.target.closest("#suggestions")){
+
+        suggestionBox.style.display="none";
+
+    }
+
+});
