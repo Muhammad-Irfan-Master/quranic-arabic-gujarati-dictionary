@@ -49,7 +49,32 @@ button.addEventListener("click", () => {
         const surahFiles = buildSurahFiles(cleanData);
 
         status.innerHTML += `<br>📖 Surahs : ${Object.keys(surahFiles).length}`;
+// ===============================
+// Download database.json
+// ===============================
 
+const jsonData = JSON.stringify(cleanData, null, 2);
+
+const blob = new Blob([jsonData], {
+    type: "application/json"
+});
+
+const url = URL.createObjectURL(blob);
+
+const a = document.createElement("a");
+
+a.href = url;
+a.download = "database.json";
+
+document.body.appendChild(a);
+
+a.click();
+
+document.body.removeChild(a);
+
+URL.revokeObjectURL(url);
+
+status.innerHTML += "<br>✅ database.json Downloaded";
         // اگلے مرحلے میں یہاں ZIP اور JSON بنیں گی
 
     };
