@@ -63,6 +63,42 @@ button.addEventListener("click", () => {
             const surahFiles = buildSurahFiles(cleanData);
 
             status.innerHTML += `<br>📖 Surahs : ${Object.keys(surahFiles).length}`;
+            // ===============================
+// Download Buttons for Surah JSON
+// ===============================
+
+let downloadHTML = "<hr><h3>📥 Download Surah JSON Files</h3>";
+
+Object.keys(surahFiles).sort().forEach(chapter => {
+
+    const jsonData = JSON.stringify(surahFiles[chapter], null, 2);
+
+    const blob = new Blob([jsonData], {
+        type: "application/json"
+    });
+
+    const url = URL.createObjectURL(blob);
+
+    downloadHTML += `
+        <div style="margin:6px 0;">
+            <a href="${url}"
+               download="${chapter}.json"
+               style="
+                    display:inline-block;
+                    padding:8px 14px;
+                    background:#0d6efd;
+                    color:white;
+                    text-decoration:none;
+                    border-radius:6px;
+                ">
+                ⬇ ${chapter}.json
+            </a>
+        </div>
+    `;
+
+});
+
+status.innerHTML += downloadHTML;
 
             // ===============================
             // Download database.json
