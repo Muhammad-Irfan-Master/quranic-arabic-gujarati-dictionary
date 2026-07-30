@@ -696,3 +696,187 @@ font-size:26px;
 direction:rtl;
 
 }
+/* ===========================
+   PAGE CONTAINER
+=========================== */
+
+body{
+    margin:0;
+    font-family:Segoe UI,Arial,sans-serif;
+    background:#f5f7fa;
+    color:#222;
+}
+
+/* ===========================
+   PAGE TITLE
+=========================== */
+
+.page-title{
+
+    background:white;
+
+    padding:25px;
+
+    margin:20px auto;
+
+    max-width:1200px;
+
+    border-radius:12px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+}
+
+.page-title h2{
+
+    margin:0;
+
+    font-size:38px;
+
+    color:#0b6b3a;
+
+}
+
+.page-title p{
+
+    margin-top:10px;
+
+    color:#666;
+
+    font-size:18px;
+
+}
+
+/* ===========================
+   SEARCH + FILTER
+=========================== */
+
+.filter-bar{
+
+    max-width:1200px;
+
+    margin:20px auto;
+
+    display:flex;
+
+    gap:15px;
+
+    flex-wrap:wrap;
+
+}
+
+.filter-bar input{
+
+    flex:1;
+
+    min-width:250px;
+
+    padding:12px;
+
+    font-size:17px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
+
+}
+
+.filter-bar select{
+
+    padding:12px;
+
+    font-size:17px;
+
+    border-radius:8px;
+
+}
+
+/* ===========================
+   TABLE
+=========================== */
+
+.word-table{
+
+    width:1200px;
+
+    max-width:100%;
+
+    margin:auto;
+
+    border-collapse:collapse;
+
+    background:white;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+}
+
+.word-table th{
+
+    background:#0b6b3a;
+
+    color:white;
+
+    padding:12px;
+
+    font-size:18px;
+
+}
+
+.word-table td{
+
+    padding:12px;
+
+    border-bottom:1px solid #eee;
+
+}
+
+.word-table tr:nth-child(even){
+
+    background:#f9f9f9;
+
+}
+
+.word-table td:nth-child(2){
+
+    text-align:center;
+
+    font-size:28px;
+
+    font-family:'Amiri','Scheherazade New',serif;
+
+}
+
+.word-table td:nth-child(3){
+
+    font-size:20px;
+
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media(max-width:768px){
+
+.filter-bar{
+
+    flex-direction:column;
+
+}
+
+.word-table{
+
+    display:block;
+
+    overflow-x:auto;
+
+}
+
+.page-title h2{
+
+    font-size:28px;
+
+}
+
+}
