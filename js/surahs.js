@@ -1,49 +1,48 @@
 fetch("data/database.json")
+.then(response => response.json())
+.then(data => {
 
-.then(response=>response.json())
+    console.log("Database Loaded:", data.length);
 
-.then(data=>{
+    const surahs = {};
 
-const surahs={};
+    data.forEach(item => {
 
-data.forEach(item=>{
+        if (!surahs[item.chapter]) {
 
-if(!surahs[item.chapter]){
+            surahs[item.chapter] = item.surah_name;
 
-surahs[item.chapter]=item.surah_name;
+        }
 
-}
+    });
 
-});
+    let html = "";
 
-let html="";
+    Object.keys(surahs)
+        .sort((a,b)=>Number(a)-Number(b))
+        .forEach(chapter => {
 
-Object.keys(surahs).forEach(chapter=>{
+            html += `
+            <a href="javascript:void(0)" class="surah-card">
 
-html+=`
+                <span class="surah-number">
+                    ${chapter}
+                </span>
 
-<a href="surah.html?chapter=${chapter}"
+                <span class="surah-name">
+                    ${surahs[chapter]}
+                </span>
 
-class="surah-card">
+            </a>
+            `;
 
-<span class="surah-number">
+        });
 
-${chapter}
+    document.getElementById("surahList").innerHTML = html;
 
-</span>
+})
+.catch(error => {
 
-<span class="surah-name">
-
-${surahs[chapter]}
-
-</span>
-
-</a>
-
-`;
-
-});
-
-document.getElementById("surahList").innerHTML=html;
+    console.error(error);
 
 });
