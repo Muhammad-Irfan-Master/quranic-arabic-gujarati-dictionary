@@ -23,7 +23,7 @@ fetch("data/database.json")
         .forEach(chapter => {
 
             html += `
-            <a href="javascript:void(0)" class="surah-card">
+            <a href="surah.html?chapter=${chapter}" class="surah-card">
 
                 <span class="surah-number">
                     ${chapter}
