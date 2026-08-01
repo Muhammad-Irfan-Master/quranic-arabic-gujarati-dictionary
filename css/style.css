@@ -797,37 +797,43 @@ body{
 
 .word-table{
 
-    width:1200px;
+width:100%;
 
-    max-width:100%;
+max-width:1200px;
 
-    margin:auto;
+margin:25px auto;
 
-    border-collapse:collapse;
+border-collapse:collapse;
 
-    background:white;
+background:#fff;
 
-    box-shadow:0 2px 8px rgba(0,0,0,.08);
+border-radius:12px;
+
+overflow:hidden;
+
+box-shadow:0 5px 18px rgba(0,0,0,.08);
 
 }
 
 .word-table th{
 
-    background:#0b6b3a;
+background:#0B6B3A;
 
-    color:white;
+color:white;
 
-    padding:12px;
+padding:16px;
 
-    font-size:18px;
+font-size:18px;
 
 }
 
 .word-table td{
 
-    padding:12px;
+padding:14px;
 
-    border-bottom:1px solid #eee;
+border-bottom:1px solid #e9ecef;
+
+vertical-align:middle;
 
 }
 
