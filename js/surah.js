@@ -31,8 +31,24 @@ fetch(`data/surahs/${fileName}.json`)
     document.getElementById("surahTitle").innerHTML =
         `📖 ${data[0].surah_name}`;
 
-    document.getElementById("surahInfo").innerHTML =
-        `Surah ${chapter} | Total Words : ${data.length}`;
+   document.getElementById("surahNumber").innerHTML =
+`Surah : ${chapter}`;
+
+document.getElementById("surahWords").innerHTML =
+`Words : ${data.length}`;
+
+document.getElementById("surahPara").innerHTML =
+`Para : ${data[0].para}`;
+
+document.getElementById("surahRuku").innerHTML =
+`Ruku : ${data[data.length-1].surah_ruku}`;
+
+// آیات کی تعداد
+
+const ayat = [...new Set(data.map(item => item.verse_key))];
+
+document.getElementById("surahAyat").innerHTML =
+`Ayat : ${ayat.length}`;
 
     // ---------- Ruku Filter ----------
 
