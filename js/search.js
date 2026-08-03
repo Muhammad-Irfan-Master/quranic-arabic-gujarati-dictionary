@@ -158,7 +158,7 @@ function showResults(results) {
 // -------------------------------------
 // 5. Event Listeners & Start
 // -------------------------------------
-// if (searchInput) searchInput.addEventListener("input", applyFilters);
+if (searchInput) searchInput.addEventListener("input", applyFilters);
 if (surahFilter) surahFilter.addEventListener("change", applyFilters);
 if (paraFilter) paraFilter.addEventListener("change", applyFilters);
 
