@@ -1,9 +1,8 @@
 // =====================================
 // Quranic Arabic Gujarati Dictionary
-// Complete & Fixed search.js
+// Complete Search System
 // =====================================
 
-// Global Database Variable
 let dictionary = [];
 
 // DOM Elements
@@ -11,234 +10,712 @@ const resultBox = document.getElementById("results");
 const searchInput = document.getElementById("searchInput");
 const surahFilter = document.getElementById("surahFilter");
 const paraFilter = document.getElementById("paraFilter");
+const suggestionBox = document.getElementById("suggestions");
 
-// -------------------------------------
-// 1. Database Load & Initialize
-// -------------------------------------
+// =====================================
+// 1. DATABASE LOAD
+// =====================================
+
 async function loadDatabase() {
-    try {
-        const response = await fetch("data/database.json");
-        dictionary = await response.json();
 
-        // کُل الفاظ کی تعداد اسکرین پر دکھائیں
-        const wordCountElem = document.getElementById("wordCount");
-        if (wordCountElem) {
-            wordCountElem.textContent = dictionary.length;
+    try {
+
+        console.log("Loading database...");
+
+        // ---------------------------------
+        // پہلے پرانی database.json load کریں
+        // ---------------------------------
+
+        const oldResponse = await fetch(
+            "data/database.json?v=" + Date.now()
+        );
+
+        if (!oldResponse.ok) {
+            throw new Error(
+                "database.json load نہیں ہو سکی"
+            );
         }
 
-        // سورت اور پارہ کے ڈراپ ڈاؤن لسٹ تیار کریں
+        const oldDatabase = await oldResponse.json();
+
+        // صرف Surah 1 سے 88 تک پرانا data رکھیں
+        const oldData = oldDatabase.filter(item => {
+
+            const chapter = Number(item.chapter);
+
+            return chapter >= 1 && chapter <= 88;
+
+        });
+
+        console.log(
+            "Old Database (Surah 1-88):",
+            oldData.length
+        );
+
+
+        // ---------------------------------
+        // نئی Surah JSON files
+        // 089.json - 114.json
+        // ---------------------------------
+
+        const surahFiles = [];
+
+        for (let i = 89; i <= 114; i++) {
+
+            const surahNumber =
+                String(i).padStart(3, "0");
+
+            surahFiles.push(
+                `data/surahs/${surahNumber}.json`
+            );
+
+        }
+
+
+        // ---------------------------------
+        // تمام نئی files ایک ساتھ Load کریں
+        // ---------------------------------
+
+        const responses = await Promise.all(
+
+            surahFiles.map(file =>
+                fetch(file + "?v=" + Date.now())
+            )
+
+        );
+
+
+        // ---------------------------------
+        // Check کریں کہ کوئی file missing نہ ہو
+        // ---------------------------------
+
+        responses.forEach((response, index) => {
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "File load نہیں ہوئی: " +
+                    surahFiles[index]
+                );
+
+            }
+
+        });
+
+
+        // ---------------------------------
+        // JSON Data حاصل کریں
+        // ---------------------------------
+
+        const newData = await Promise.all(
+
+            responses.map(response =>
+                response.json()
+            )
+
+        );
+
+
+        // تمام نئی Surah files کو ایک array بنائیں
+        const newSurahData = newData.flat();
+
+
+        console.log(
+            "New Database (Surah 89-114):",
+            newSurahData.length
+        );
+
+
+        // ---------------------------------
+        // Old + New Data Combine
+        // ---------------------------------
+
+        dictionary = [
+            ...oldData,
+            ...newSurahData
+        ];
+
+
+        console.log(
+            "TOTAL RECORDS:",
+            dictionary.length
+        );
+
+
+        // ---------------------------------
+        // Word Count
+        // ---------------------------------
+
+        const wordCountElem =
+            document.getElementById("wordCount");
+
+        if (wordCountElem) {
+
+            wordCountElem.textContent =
+                dictionary.length;
+
+        }
+
+
+        // ---------------------------------
+        // Filters
+        // ---------------------------------
+
         populateFilters();
 
-        // شروع میں تمام یا شروعاتی الفاظ اسکرین پر دکھائیں
+
+        // ---------------------------------
+        // Initial Results
+        // ---------------------------------
+
         applyFilters();
 
+
     } catch (error) {
-        console.error("Database Error:", error);
+
+        console.error(
+            "Database Error:",
+            error
+        );
+
         if (resultBox) {
+
             resultBox.innerHTML = `
-                <div class="no-result">
-                    <h3>ڈیٹا بیس لوڈ کرنے میں مسئلہ آیا ہے (Database Load Error)</h3>
-                </div>`;
+                <div class="no-result"
+                     style="text-align:center; padding:20px;">
+
+                    <h3>
+                        Database Load Error
+                    </h3>
+
+                    <p>
+                        ${error.message}
+                    </p>
+
+                </div>
+            `;
+
         }
+
     }
+
 }
 
-// -------------------------------------
-// 2. Populate Surah & Para Dropdowns
-// -------------------------------------
+
+// =====================================
+// 2. SURAH & PARA FILTERS
+// =====================================
+
 function populateFilters() {
-    if (!surahFilter || !paraFilter) return;
 
-    // ڈیٹا بیس سے تمام سورتوں اور پاروں کی الگ لسٹ تیار کریں
-    const surahs = [...new Set(dictionary.map(item => item.chapter))].filter(Boolean).sort((a, b) => a - b);
-    const paras = [...new Set(dictionary.map(item => item.para))].filter(Boolean).sort((a, b) => a - b);
+    if (!surahFilter || !paraFilter) {
+        return;
+    }
 
-    // Surah Dropdown بھریں
-    surahFilter.innerHTML = `<option value="">تمام سورتیں (All Surahs)</option>`;
+
+    // ---------------------------------
+    // Surahs
+    // ---------------------------------
+
+    const surahs = [
+
+        ...new Set(
+            dictionary
+                .map(item => item.chapter)
+                .filter(Boolean)
+        )
+
+    ].sort(
+        (a, b) => Number(a) - Number(b)
+    );
+
+
+    // ---------------------------------
+    // Paras
+    // ---------------------------------
+
+    const paras = [
+
+        ...new Set(
+            dictionary
+                .map(item => item.para)
+                .filter(Boolean)
+        )
+
+    ].sort(
+        (a, b) => Number(a) - Number(b)
+    );
+
+
+    // ---------------------------------
+    // Surah Dropdown
+    // ---------------------------------
+
+    surahFilter.innerHTML =
+        `<option value="">
+            تمام سورتیں (All Surahs)
+        </option>`;
+
+
     surahs.forEach(surah => {
-        surahFilter.innerHTML += `<option value="${surah}">Surah ${surah}</option>`;
+
+        surahFilter.innerHTML +=
+            `<option value="${surah}">
+                Surah ${surah}
+            </option>`;
+
     });
 
-    // Para Dropdown بھریں
-    paraFilter.innerHTML = `<option value="">تمام پارے (All Paras)</option>`;
+
+    // ---------------------------------
+    // Para Dropdown
+    // ---------------------------------
+
+    paraFilter.innerHTML =
+        `<option value="">
+            تمام پارے (All Paras)
+        </option>`;
+
+
     paras.forEach(para => {
-        paraFilter.innerHTML += `<option value="${para}">Para ${para}</option>`;
+
+        paraFilter.innerHTML +=
+            `<option value="${para}">
+                Para ${para}
+            </option>`;
+
     });
+
 }
 
-// -------------------------------------
-// 3. Search and Apply Filters
-// -------------------------------------
+
+// =====================================
+// 3. SEARCH + FILTER
+// =====================================
+
 function applyFilters() {
-    const keyword = searchInput ? searchInput.value.trim().toLowerCase() : "";
-    const selectedSurah = surahFilter ? surahFilter.value : "";
-    const selectedPara = paraFilter ? paraFilter.value : "";
+
+    const keyword =
+        searchInput
+            ? searchInput.value.trim().toLowerCase()
+            : "";
+
+
+    const selectedSurah =
+        surahFilter
+            ? surahFilter.value
+            : "";
+
+
+    const selectedPara =
+        paraFilter
+            ? paraFilter.value
+            : "";
+
 
     let results = dictionary;
 
-    // --- 1. سرچ بار فلٹر ---
+
+    // ---------------------------------
+    // Search Box
+    // ---------------------------------
+
     if (keyword !== "") {
+
         results = results.filter(item => {
-            const arabic = String(item.word || "").toLowerCase();
-            const plain = String(item.plain || "").toLowerCase();
-            const guPron = String(item.pronunciation_gu || "").toLowerCase();
-            const guMeaning = String(item.meaning_gu || "").toLowerCase();
-            const chapter = String(item.chapter || "");
-            const para = String(item.para || "");
+
+            const arabic =
+                String(item.word || "")
+                    .toLowerCase();
+
+
+            const plain =
+                String(item.plain || "")
+                    .toLowerCase();
+
+
+            const guPron =
+                String(item.pronunciation_gu || "")
+                    .toLowerCase();
+
+
+            const guMeaning =
+                String(item.meaning_gu || "")
+                    .toLowerCase();
+
+
+            const chapter =
+                String(item.chapter || "");
+
+
+            const para =
+                String(item.para || "");
+
 
             return (
+
                 arabic.includes(keyword) ||
+
                 plain.includes(keyword) ||
+
                 guPron.includes(keyword) ||
+
                 guMeaning.includes(keyword) ||
+
                 chapter === keyword ||
+
                 para === keyword
+
             );
+
         });
+
     }
 
-    // --- 2. سورت فلٹر ---
+
+    // ---------------------------------
+    // Surah Filter
+    // ---------------------------------
+
     if (selectedSurah !== "") {
-        results = results.filter(item => String(item.chapter) === String(selectedSurah));
+
+        results = results.filter(item =>
+
+            String(item.chapter) ===
+            String(selectedSurah)
+
+        );
+
     }
 
-    // --- 3. پارہ فلٹر ---
+
+    // ---------------------------------
+    // Para Filter
+    // ---------------------------------
+
     if (selectedPara !== "") {
-        results = results.filter(item => String(item.para) === String(selectedPara));
+
+        results = results.filter(item =>
+
+            String(item.para) ===
+            String(selectedPara)
+
+        );
+
     }
 
-    // نتائج کو اسکرین پر شو کریں
+
+    // ---------------------------------
+    // Show Results
+    // ---------------------------------
+
     showResults(results);
+
 }
 
-// -------------------------------------
-// 4. Display Results on Screen (UI)
-// -------------------------------------
-function showResults(results) {
-    if (!resultBox) return;
 
-    // اگر کوئی نتیجہ نہ ملے
-    if (results.length === 0) {
-        resultBox.innerHTML = `
-            <div class="no-result" style="text-align:center; padding: 20px;">
-                <h3>No Result Found / کوئی نتیجہ نہیں ملا</h3>
-            </div>
-        `;
+// =====================================
+// 4. SHOW RESULTS
+// =====================================
+
+function showResults(results) {
+
+    if (!resultBox) {
         return;
     }
 
+
+    // کوئی Result نہیں
+    if (results.length === 0) {
+
+        resultBox.innerHTML = `
+            <div class="no-result"
+                 style="text-align:center; padding:20px;">
+
+                <h3>
+                    No Result Found / کوئی نتیجہ نہیں ملا
+                </h3>
+
+            </div>
+        `;
+
+        return;
+
+    }
+
+
     let html = "";
 
-    // صفحہ زیادہ بھاری نہ ہو، اس لیے شروعاتی 50 نتائج دکھائیں
+
+    // صرف پہلے 50 نتائج
     results.slice(0, 50).forEach(item => {
+
         html += `
+
         <div class="result-card">
+
             <div class="arabic-word">
                 ${item.word || ""}
             </div>
+
+
             <div class="result-row">
-                <strong>🔊 ગુજરાતી ઉચ્ચાર :</strong> ${item.pronunciation_gu || "-"}
+
+                <strong>
+                    🔊 ગુજરાતી ઉચ્ચાર :
+                </strong>
+
+                ${item.pronunciation_gu || "-"}
+
             </div>
+
+
             <div class="result-row">
-                <strong>📖 ગુજરાતી અર્થ :</strong> ${item.meaning_gu || "-"}
+
+                <strong>
+                    📖 ગુજરાતી અર્થ :
+                </strong>
+
+                ${item.meaning_gu || "-"}
+
             </div>
+
+
             <div class="result-row">
-                <strong>📚 Surah :</strong> ${item.chapter || "-"}
+
+                <strong>
+                    📚 Surah :
+                </strong>
+
+                ${item.chapter || "-"}
+
             </div>
+
+
             <div class="result-row">
-                <strong>🕌 Para :</strong> ${item.para || "-"}
+
+                <strong>
+                    🕌 Para :
+                </strong>
+
+                ${item.para || "-"}
+
             </div>
+
         </div>
+
         `;
+
     });
 
+
     resultBox.innerHTML = html;
+
 }
 
-// -------------------------------------
-// 5. Event Listeners & Start
-// -------------------------------------
-if (searchInput) searchInput.addEventListener("input", applyFilters);
-if (surahFilter) surahFilter.addEventListener("change", applyFilters);
-if (paraFilter) paraFilter.addEventListener("change", applyFilters);
 
-// ایپلیکیشن شروع کریں
-loadDatabase();
 // =====================================
-// AUTOCOMPLETE
+// 5. AUTOCOMPLETE
 // =====================================
-
-const suggestionBox = document.getElementById("suggestions");
-
-searchInput.addEventListener("input", showSuggestions);
 
 function showSuggestions() {
 
-    const keyword = searchInput.value.trim();
-
-    if (keyword === "") {
-        suggestionBox.style.display = "none";
-        suggestionBox.innerHTML = "";
-        applyFilters();
+    if (!searchInput || !suggestionBox) {
         return;
     }
 
-    const results = dictionary.filter(item =>
 
-        (item.word || "").includes(keyword) ||
-        (item.plain || "").includes(keyword) ||
-        (item.pronunciation_gu || "").includes(keyword) ||
-        (item.meaning_gu || "").includes(keyword)
+    const keyword =
+        searchInput.value.trim().toLowerCase();
 
-    ).slice(0,10);
 
+    // خالی search
+    if (keyword === "") {
+
+        suggestionBox.style.display = "none";
+        suggestionBox.innerHTML = "";
+
+        applyFilters();
+
+        return;
+
+    }
+
+
+    // Search Suggestions
+    const results = dictionary.filter(item => {
+
+        const word =
+            String(item.word || "")
+                .toLowerCase();
+
+
+        const plain =
+            String(item.plain || "")
+                .toLowerCase();
+
+
+        const pronunciation =
+            String(item.pronunciation_gu || "")
+                .toLowerCase();
+
+
+        const meaning =
+            String(item.meaning_gu || "")
+                .toLowerCase();
+
+
+        return (
+
+            word.includes(keyword) ||
+
+            plain.includes(keyword) ||
+
+            pronunciation.includes(keyword) ||
+
+            meaning.includes(keyword)
+
+        );
+
+    }).slice(0, 10);
+
+
+    // کوئی suggestion نہیں
     if (results.length === 0) {
 
         suggestionBox.style.display = "none";
         suggestionBox.innerHTML = "";
+
         return;
 
     }
 
+
     let html = "";
+
 
     results.forEach(item => {
 
+        const word =
+            String(item.word || "")
+                .replace(/'/g, "\\'");
+
+
         html += `
-        <div class="suggestion-item"
-             onclick="selectWord('${item.word.replace(/'/g,"\\'")}')">
 
-            ${item.word}
+            <div class="suggestion-item"
+                 onclick="selectWord('${word}')">
 
-        </div>
+                ${item.word || ""}
+
+            </div>
+
         `;
 
     });
 
+
     suggestionBox.innerHTML = html;
+
     suggestionBox.style.display = "block";
 
 }
 
-function selectWord(word){
+
+// =====================================
+// 6. SELECT AUTOCOMPLETE WORD
+// =====================================
+
+function selectWord(word) {
+
+    if (!searchInput) {
+        return;
+    }
+
 
     searchInput.value = word;
 
-    suggestionBox.style.display = "none";
+
+    if (suggestionBox) {
+
+        suggestionBox.style.display =
+            "none";
+
+    }
+
 
     applyFilters();
 
 }
 
-// باہر Click کرنے پر List بند ہو جائے
 
-document.addEventListener("click",function(e){
+// =====================================
+// 7. EVENT LISTENERS
+// =====================================
 
-    if(!e.target.closest(".search-box") &&
-       !e.target.closest("#suggestions")){
+if (searchInput) {
 
-        suggestionBox.style.display="none";
+    searchInput.addEventListener(
+        "input",
+        function () {
+
+            showSuggestions();
+            applyFilters();
+
+        }
+    );
+
+}
+
+
+if (surahFilter) {
+
+    surahFilter.addEventListener(
+        "change",
+        applyFilters
+    );
+
+}
+
+
+if (paraFilter) {
+
+    paraFilter.addEventListener(
+        "change",
+        applyFilters
+    );
+
+}
+
+
+// =====================================
+// 8. OUTSIDE CLICK
+// =====================================
+
+document.addEventListener(
+    "click",
+    function (e) {
+
+        if (
+            !e.target.closest(".search-box") &&
+            !e.target.closest("#suggestions")
+        ) {
+
+            if (suggestionBox) {
+
+                suggestionBox.style.display =
+                    "none";
+
+            }
+
+        }
 
     }
+);
 
-});
+
+// =====================================
+// 9. START APPLICATION
+// =====================================
+
+loadDatabase();
