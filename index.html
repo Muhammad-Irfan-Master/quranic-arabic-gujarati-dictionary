@@ -19,11 +19,15 @@
     <meta name="author"
           content="Muhammad Irfan Master">
 
-    <!-- CSS -->
+    <!-- ===========================
+         CSS
+    =========================== -->
 
     <link rel="stylesheet" href="css/style.css">
 
-    <!-- Google Fonts -->
+    <!-- ===========================
+         GOOGLE FONTS
+    =========================== -->
 
     <link rel="preconnect"
           href="https://fonts.googleapis.com">
@@ -32,60 +36,84 @@
           href="https://fonts.gstatic.com"
           crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-          rel="stylesheet">
+    <!-- Poppins + Rasa + Scheherazade New -->
 
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Rasa:wght@400;500;600;700&family=Scheherazade+New:wght@400;700&display=swap"
           rel="stylesheet">
 
 </head>
 
+
 <body>
 
+
 <!-- ===========================
-HEADER
+     HEADER
 =========================== -->
 
 <header class="top-header">
 
-<div class="container">
+    <div class="container">
 
-<div class="logo">
+        <div class="logo">
 
-<span class="logo-icon">📖</span>
+            <span class="logo-icon">📖</span>
 
-<div>
+            <div>
 
-<h1>Quranic Arabic Gujarati Dictionary</h1>
+                <h1>
+                    Quranic Arabic Gujarati Dictionary
+                </h1>
 
-<p>Learn Quranic Arabic through Gujarati</p>
+                <p>
+                    Learn Quranic Arabic through Gujarati
+                </p>
 
-</div>
+            </div>
 
-</div>
+        </div>
 
-<nav>
 
-<ul>
+        <nav>
 
-<li><a href="index.html">Dictionary</a></li>
+            <ul>
 
-<li><a href="surahs.html">Surahs</a></li>
+                <li>
+                    <a href="index.html">
+                        Dictionary
+                    </a>
+                </li>
 
-<li><a href="paras.html">Paras</a></li>
+                <li>
+                    <a href="surahs.html">
+                        Surahs
+                    </a>
+                </li>
 
-<li><a href="about.html">About</a></li>
+                <li>
+                    <a href="paras.html">
+                        Paras
+                    </a>
+                </li>
 
-</ul>
+                <li>
+                    <a href="about.html">
+                        About
+                    </a>
+                </li>
 
-</nav>
+            </ul>
 
-</div>
+        </nav>
+
+    </div>
 
 </header>
 
+
+
 <!-- ===========================
-HERO
+     HERO
 =========================== -->
 
 <section class="hero">
@@ -93,56 +121,77 @@ HERO
     <div class="container">
 
         <h2>
-
             Search Quranic Arabic Words
-
         </h2>
 
-        <p>
 
+        <p>
             Arabic → Gujarati Dictionary with
             Root Words, Verse References
             and Word Meanings.
-
         </p>
 
-<!-- SEARCH -->
 
-<div class="search-box">
 
-<input
-type="text"
-id="searchInput"
-placeholder="Search Arabic Word...">
+        <!-- ===========================
+             SEARCH
+        =========================== -->
 
-<button id="searchBtn">
+        <div class="search-box">
 
-Search
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search Arabic Word...">
 
-</button>
+            <button id="searchBtn">
+                Search
+            </button>
 
-</div>
-<div id="suggestions" class="suggestions"></div>
+        </div>
+
+
+        <!-- AUTOCOMPLETE -->
+
+        <div id="suggestions"
+             class="suggestions">
+        </div>
+
+
+
+        <!-- ===========================
+             FILTER BAR
+        =========================== -->
+
         <div class="filter-bar">
 
-<select id="surahFilter">
+            <select id="surahFilter">
 
-<option value="">تمام سورتیں (All Surahs)</option>
+                <option value="">
+                    تمام سورتیں (All Surahs)
+                </option>
 
-</select>
+            </select>
 
-<select id="paraFilter">
 
-<option value="">تمام پارے (All Paras)</option>
+            <select id="paraFilter">
 
-</select>
+                <option value="">
+                    تمام پارے (All Paras)
+                </option>
 
-</div>
+            </select>
+
+        </div>
+
     </div>
 
 </section>
+
+
+
 <!-- ===========================
-SEARCH RESULTS
+     SEARCH RESULTS
 =========================== -->
 
 <section class="search-results">
@@ -158,103 +207,124 @@ SEARCH RESULTS
     </div>
 
 </section>
+
+
+
 <!-- ===========================
-STATISTICS
+     STATISTICS
 =========================== -->
 
 <section class="statistics">
 
-<div class="container">
+    <div class="container">
 
-<div class="card">
 
-<h3>
+        <div class="card">
 
-Words
+            <h3>
+                Words
+            </h3>
 
-</h3>
+            <p id="wordCount">
+                0
+            </p>
 
-<p id="wordCount">
+        </div>
 
-0
 
-</p>
 
-</div>
+        <div class="card">
 
-<div class="card">
+            <h3>
+                Roots
+            </h3>
 
-<h3>
+            <p>
+                0
+            </p>
 
-Roots
+        </div>
 
-</h3>
 
-<p>
 
-0
+        <div class="card">
 
-</p>
+            <h3>
+                Surahs
+            </h3>
 
-</div>
+            <p>
+                114
+            </p>
 
-<div class="card">
+        </div>
 
-<h3>
 
-Surahs
 
-</h3>
+        <div class="card">
 
-<p>
+            <h3>
+                Paras
+            </h3>
 
-114
+            <p>
+                30
+            </p>
 
-</p>
+        </div>
 
-</div>
-
-<div class="card">
-
-<h3>
-
-Paras
-
-</h3>
-
-<p>
-
-30
-
-</p>
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
-<!-- Popular Words یہاں سے اگلے حصے میں شروع ہوں گے -->
+
+
 <!-- ===========================
-POPULAR WORDS
+     POPULAR WORDS
 =========================== -->
 
 <section class="popular">
 
     <div class="container">
 
-        <h2>Popular Quran Words</h2>
+        <h2>
+            Popular Quran Words
+        </h2>
+
 
         <div class="word-list">
 
-            <span class="word">الله</span>
-            <span class="word">الرحمن</span>
-            <span class="word">الرحيم</span>
-            <span class="word">كتاب</span>
-            <span class="word">إيمان</span>
-            <span class="word">نور</span>
-            <span class="word">جنة</span>
-            <span class="word">نار</span>
+            <span class="word">
+                الله
+            </span>
+
+            <span class="word">
+                الرحمن
+            </span>
+
+            <span class="word">
+                الرحيم
+            </span>
+
+            <span class="word">
+                كتاب
+            </span>
+
+            <span class="word">
+                إيمان
+            </span>
+
+            <span class="word">
+                نور
+            </span>
+
+            <span class="word">
+                جنة
+            </span>
+
+            <span class="word">
+                نار
+            </span>
 
         </div>
 
@@ -262,49 +332,78 @@ POPULAR WORDS
 
 </section>
 
+
+
 <!-- ===========================
-FEATURES
+     FEATURES
 =========================== -->
 
 <section class="features">
 
     <div class="container">
 
-        <h2>Features</h2>
+        <h2>
+            Features
+        </h2>
+
 
         <div class="feature-grid">
 
-            <div class="feature-box">
-
-                <h3>🔍 Fast Search</h3>
-
-                <p>Instant Arabic word search.</p>
-
-            </div>
 
             <div class="feature-box">
 
-                <h3>📖 Gujarati Meaning</h3>
+                <h3>
+                    🔍 Fast Search
+                </h3>
 
-                <p>Simple and accurate meanings.</p>
+                <p>
+                    Instant Arabic word search.
+                </p>
 
             </div>
+
+
 
             <div class="feature-box">
 
-                <h3>🌱 Root Explorer</h3>
+                <h3>
+                    📖 Gujarati Meaning
+                </h3>
 
-                <p>Find words by Arabic roots.</p>
+                <p>
+                    Simple and accurate meanings.
+                </p>
 
             </div>
+
+
 
             <div class="feature-box">
 
-                <h3>📱 Mobile Friendly</h3>
+                <h3>
+                    🌱 Root Explorer
+                </h3>
 
-                <p>Works beautifully on all devices.</p>
+                <p>
+                    Find words by Arabic roots.
+                </p>
 
             </div>
+
+
+
+            <div class="feature-box">
+
+                <h3>
+                    📱 Mobile Friendly
+                </h3>
+
+                <p>
+                    Works beautifully on all devices.
+                </p>
+
+            </div>
+
 
         </div>
 
@@ -312,21 +411,34 @@ FEATURES
 
 </section>
 
+
+
+<!-- ===========================
+     FOOTER
+=========================== -->
+
 <footer>
 
     <div class="container">
 
         <p>
-
             © 2026 Quranic Arabic–Gujarati Dictionary
-
         </p>
 
     </div>
 
 </footer>
+
+
+
+<!-- ===========================
+     JAVASCRIPT
+=========================== -->
+
 <script src="js/app.js"></script>
+
 <script src="js/search.js"></script>
+
 
 </body>
 
