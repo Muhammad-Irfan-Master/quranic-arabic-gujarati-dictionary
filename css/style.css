@@ -1096,3 +1096,28 @@ footer{
     font-family:'Rasa',sans-serif;
 
 }
+/* ==========================================
+   ARABIC FONT - HOME PAGE SEARCH CARD
+========================================== */
+
+.arabic-word {
+    font-family: 'Scheherazade New', serif !important;
+    font-size: 55px;
+    text-align: center;
+    direction: rtl;
+    color: #111;
+    margin-bottom: 8px;
+}
+/* ==========================================
+   ARABIC FONT - ALL OTHER PLACES
+========================================== */
+
+.arabic,
+.word,
+.surah-name,
+.result-card h2,
+.word-table td:nth-child(2),
+.suggestion-item,
+[lang="ar"] {
+    font-family: 'Scheherazade New', serif !important;
+}
