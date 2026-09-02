@@ -4,11 +4,27 @@
    Author  : Muhammad Irfan Master
 ========================================== */
 
+/* ==========================================
+   GOOGLE FONTS
+========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Rasa:wght@400;500;600;700&family=Scheherazade+New:wght@400;700&display=swap');
+
+
+/* ==========================================
+   RESET
+========================================== */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
 }
+
+
+/* ==========================================
+   ROOT VARIABLES
+========================================== */
 
 :root{
 
@@ -21,19 +37,29 @@
 
 }
 
+
+/* ==========================================
+   BODY
+========================================== */
+
 body{
 
-    font-family:'Poppins',sans-serif;
+    margin:0;
 
-    background:var(--light);
+    font-family:'Poppins','Segoe UI',Arial,sans-serif;
 
-    color:var(--dark);
+    background:#f5f7fa;
+
+    color:#222;
 
     line-height:1.7;
 
 }
 
-/* Container */
+
+/* ==========================================
+   CONTAINER
+========================================== */
 
 .container{
 
@@ -45,113 +71,125 @@ body{
 
 }
 
-/* ==========================
-HEADER
-========================== */
+
+/* ==========================================
+   HEADER
+========================================== */
 
 .top-header{
 
-background:#0B6B3A;
+    background:#0B6B3A;
 
-padding:18px 0;
+    padding:18px 0;
 
-box-shadow:0 3px 12px rgba(0,0,0,.15);
+    box-shadow:0 3px 12px rgba(0,0,0,.15);
 
 }
 
 .top-header .container{
 
-width:90%;
+    width:90%;
 
-max-width:1200px;
+    max-width:1200px;
 
-margin:auto;
+    margin:auto;
 
-display:flex;
+    display:flex;
 
-justify-content:space-between;
+    justify-content:space-between;
 
-align-items:center;
+    align-items:center;
 
-flex-wrap:wrap;
+    flex-wrap:wrap;
 
 }
 
+
+/* ==========================================
+   LOGO
+========================================== */
+
 .logo{
 
-display:flex;
+    display:flex;
 
-align-items:center;
+    align-items:center;
 
-gap:15px;
+    gap:15px;
 
 }
 
 .logo-icon{
 
-font-size:48px;
+    font-size:48px;
 
 }
 
 .logo h1{
 
-color:white;
+    color:white;
 
-font-size:34px;
+    font-size:34px;
 
-margin:0;
+    margin:0;
 
 }
 
 .logo p{
 
-color:#d9f3df;
+    color:#d9f3df;
 
-margin-top:4px;
+    margin-top:4px;
 
-font-size:15px;
+    font-size:15px;
 
 }
 
+
+/* ==========================================
+   NAVIGATION
+========================================== */
+
 nav ul{
 
-display:flex;
+    display:flex;
 
-list-style:none;
+    list-style:none;
 
-gap:25px;
+    gap:25px;
 
 }
 
 nav a{
 
-color:white;
+    color:white;
 
-text-decoration:none;
+    text-decoration:none;
 
-font-size:18px;
+    font-size:18px;
 
-font-weight:600;
+    font-weight:600;
 
-padding:8px 12px;
+    padding:8px 12px;
 
-border-radius:6px;
+    border-radius:6px;
 
-transition:.3s;
+    transition:.3s;
 
 }
 
 nav a:hover{
 
-background:white;
+    background:white;
 
-color:#0B6B3A;
+    color:#0B6B3A;
 
 }
 
-/* ==========================
-Hero Section
-========================== */
+
+/* ==========================================
+   HERO SECTION
+========================================== */
 
 .hero{
 
@@ -181,9 +219,10 @@ Hero Section
 
 }
 
-/* ==========================
-Search Box
-========================== */
+
+/* ==========================================
+   SEARCH BOX
+========================================== */
 
 .search-box{
 
@@ -237,9 +276,10 @@ Search Box
 
 }
 
-/* ==========================
-Statistics
-========================== */
+
+/* ==========================================
+   STATISTICS
+========================================== */
 
 .statistics{
 
@@ -294,138 +334,147 @@ Statistics
     font-weight:bold;
 
 }
-/* ==========================
-POPULAR WORDS
-========================== */
+
+
+/* ==========================================
+   POPULAR WORDS
+========================================== */
 
 .popular{
 
-padding:60px 0;
+    padding:60px 0;
 
-text-align:center;
+    text-align:center;
 
 }
 
 .word-list{
 
-margin-top:30px;
+    margin-top:30px;
 
-display:flex;
+    display:flex;
 
-flex-wrap:wrap;
+    flex-wrap:wrap;
 
-justify-content:center;
+    justify-content:center;
 
-gap:15px;
+    gap:15px;
 
 }
 
+
+/* Arabic popular words */
+
 .word{
 
-background:#ffffff;
+    background:#ffffff;
 
-padding:12px 22px;
+    padding:12px 22px;
 
-border-radius:30px;
+    border-radius:30px;
 
-box-shadow:0 4px 10px rgba(0,0,0,.08);
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
 
-font-family:'Amiri',serif;
+    font-family:'Scheherazade New',serif;
 
-font-size:24px;
+    font-size:24px;
 
-cursor:pointer;
+    cursor:pointer;
 
-transition:.3s;
+    transition:.3s;
 
 }
 
 .word:hover{
 
-background:var(--primary);
+    background:var(--primary);
 
-color:white;
+    color:white;
 
 }
 
-/* ==========================
-FEATURES
-========================== */
+
+/* ==========================================
+   FEATURES
+========================================== */
 
 .features{
 
-padding:70px 0;
+    padding:70px 0;
 
-background:white;
+    background:white;
 
 }
 
 .features h2{
 
-text-align:center;
+    text-align:center;
 
-margin-bottom:40px;
+    margin-bottom:40px;
 
 }
 
 .feature-grid{
 
-display:grid;
+    display:grid;
 
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
 
-gap:25px;
+    gap:25px;
 
 }
 
 .feature-box{
 
-background:var(--light);
+    background:var(--light);
 
-padding:30px;
+    padding:30px;
 
-border-radius:12px;
+    border-radius:12px;
 
-text-align:center;
+    text-align:center;
 
-transition:.3s;
+    transition:.3s;
 
 }
 
 .feature-box:hover{
 
-transform:translateY(-8px);
+    transform:translateY(-8px);
 
 }
 
 .feature-box h3{
 
-margin-bottom:15px;
+    margin-bottom:15px;
 
-color:var(--primary);
+    color:var(--primary);
 
 }
 
-/* ==========================
-FOOTER
-========================== */
+
+/* ==========================================
+   FOOTER
+========================================== */
 
 footer{
 
-background:var(--primary);
+    background:var(--primary);
 
-color:white;
+    color:white;
 
-padding:30px;
+    padding:30px;
 
-margin-top:70px;
+    margin-top:70px;
 
-text-align:center;
+    text-align:center;
 
 }
-/* ==========================
-SEARCH RESULTS
-========================== */
+
+
+/* ==========================================
+   SEARCH RESULTS
+========================================== */
 
 .search-results{
 
@@ -440,14 +489,18 @@ SEARCH RESULTS
     margin:auto;
 
 }
-/* ==========================
-SEARCH RESULT CARD
-========================== */
+
+
+/* ==========================================
+   SEARCH RESULT CARD
+========================================== */
 
 .result-card{
-max-width:850px;
 
-margin:25px auto;
+    max-width:850px;
+
+    margin:25px auto;
+
     background:white;
 
     padding:25px;
@@ -460,26 +513,10 @@ margin:25px auto;
 
 }
 
-.result-card h2{
 
-    font-family:'Amiri',serif;
-
-    font-size:34px;
-
-    color:var(--primary);
-
-    margin-bottom:15px;
-
-}
-
-.result-card p{
-
-    margin:8px 0;
-
-}
-/* ===========================
-SEARCH RESULT CARD
-=========================== */
+/* ==========================================
+   SEARCH RESULT CARD
+========================================== */
 
 .result-card{
 
@@ -507,9 +544,14 @@ SEARCH RESULT CARD
 
 }
 
+
+/* ==========================================
+   ARABIC SEARCH RESULT
+========================================== */
+
 .arabic{
 
-    font-family:'Amiri',serif;
+    font-family:'Scheherazade New',serif;
 
     font-size:55px;
 
@@ -523,6 +565,11 @@ SEARCH RESULT CARD
 
 }
 
+
+/* ==========================================
+   PLAIN ARABIC
+========================================== */
+
 .plain{
 
     text-align:center;
@@ -534,6 +581,11 @@ SEARCH RESULT CARD
     margin-bottom:20px;
 
 }
+
+
+/* ==========================================
+   RESULT ROW
+========================================== */
 
 .result-row{
 
@@ -549,67 +601,72 @@ SEARCH RESULT CARD
 
 }
 
-@media(max-width:768px){
 
-.arabic{
-
-font-size:32px;
-
-}
-
-.result-row{
-
-font-size:16px;
-
-}
-
-}
-/* ===========================
-FILTER BAR
-=========================== */
+/* ==========================================
+   FILTER BAR
+========================================== */
 
 .filter-bar{
 
-width:80%;
+    width:80%;
 
-max-width:900px;
+    max-width:900px;
 
-margin:20px auto 35px auto;
+    margin:20px auto 35px auto;
 
-display:flex;
+    display:flex;
 
-justify-content:center;
+    justify-content:center;
 
-gap:15px;
+    gap:15px;
 
-flex-wrap:wrap;
+    flex-wrap:wrap;
+
+}
+
+.filter-bar input{
+
+    flex:1;
+
+    min-width:250px;
+
+    padding:12px;
+
+    font-size:17px;
+
+    border:1px solid #ccc;
+
+    border-radius:8px;
 
 }
 
 .filter-bar select{
 
-padding:12px 18px;
+    padding:12px 18px;
 
-font-size:16px;
+    font-size:16px;
 
-border:2px solid #198754;
+    border:2px solid #198754;
 
-border-radius:8px;
+    border-radius:8px;
 
-background:#fff;
+    background:#fff;
 
-cursor:pointer;
+    cursor:pointer;
 
-min-width:220px;
+    min-width:220px;
 
 }
-/* ===========================
-Autocomplete
-=========================== */
+
+
+/* ==========================================
+   AUTOCOMPLETE
+========================================== */
 
 .suggestions{
 
     width:100%;
+
     background:#fff;
 
     border:1px solid #ddd;
@@ -640,6 +697,8 @@ Autocomplete
 
     direction:rtl;
 
+    font-family:'Scheherazade New',serif;
+
 }
 
 .suggestion-item:hover{
@@ -647,87 +706,83 @@ Autocomplete
     background:#f4f4f4;
 
 }
-/* ===========================
-SURAH PAGE
-=========================== */
+
+
+/* ==========================================
+   SURAH PAGE
+========================================== */
 
 .surah-list{
 
-display:grid;
+    display:grid;
 
-grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
 
-gap:15px;
+    gap:15px;
 
-padding:20px;
+    padding:20px;
 
 }
 
 .surah-card{
 
-display:flex;
+    display:flex;
 
-justify-content:space-between;
+    justify-content:space-between;
 
-align-items:center;
+    align-items:center;
 
-padding:15px;
+    padding:15px;
 
-background:white;
+    background:white;
 
-border-radius:10px;
+    border-radius:10px;
 
-text-decoration:none;
+    text-decoration:none;
 
-color:#222;
+    color:#222;
 
-box-shadow:0 2px 8px rgba(0,0,0,.1);
+    box-shadow:0 2px 8px rgba(0,0,0,.1);
 
-font-size:22px;
+    font-size:22px;
 
-transition:.3s;
+    transition:.3s;
 
 }
 
 .surah-card:hover{
 
-background:#f3f8ff;
+    background:#f3f8ff;
 
-transform:translateY(-3px);
+    transform:translateY(-3px);
 
 }
 
 .surah-number{
 
-font-weight:bold;
+    font-weight:bold;
 
-color:#006699;
+    color:#006699;
 
 }
+
+
+/* Arabic Surah name */
 
 .surah-name{
 
-font-family:"Amiri",serif;
+    font-family:'Scheherazade New',serif;
 
-font-size:26px;
+    font-size:26px;
 
-direction:rtl;
+    direction:rtl;
 
 }
-/* ===========================
+
+
+/* ==========================================
    PAGE CONTAINER
-=========================== */
-
-body{
-    margin:0;
-    font-family:Segoe UI,Arial,sans-serif;
-    background:#f5f7fa;
-    color:#222;
-}
-
-/* ===========================
-   PAGE TITLE
-=========================== */
+========================================== */
 
 .page-title{
 
@@ -744,6 +799,11 @@ body{
     box-shadow:0 2px 8px rgba(0,0,0,.08);
 
 }
+
+
+/* ==========================================
+   PAGE TITLE
+========================================== */
 
 .page-title h2{
 
@@ -765,9 +825,10 @@ body{
 
 }
 
-/* ===========================
+
+/* ==========================================
    SEARCH + FILTER
-=========================== */
+========================================== */
 
 .filter-bar{
 
@@ -783,75 +844,50 @@ body{
 
 }
 
-.filter-bar input{
 
-    flex:1;
-
-    min-width:250px;
-
-    padding:12px;
-
-    font-size:17px;
-
-    border:1px solid #ccc;
-
-    border-radius:8px;
-
-}
-
-.filter-bar select{
-
-    padding:12px;
-
-    font-size:17px;
-
-    border-radius:8px;
-
-}
-
-/* ===========================
+/* ==========================================
    TABLE
-=========================== */
+========================================== */
 
 .word-table{
 
-width:100%;
+    width:100%;
 
-max-width:1200px;
+    max-width:1200px;
 
-margin:25px auto;
+    margin:25px auto;
 
-border-collapse:collapse;
+    border-collapse:collapse;
 
-background:#fff;
+    background:#fff;
 
-border-radius:12px;
+    border-radius:12px;
 
-overflow:hidden;
+    overflow:hidden;
 
-box-shadow:0 5px 18px rgba(0,0,0,.08);
+    box-shadow:0 5px 18px rgba(0,0,0,.08);
 
 }
 
 .word-table th{
 
-background:#0B6B3A;
+    background:#0B6B3A;
 
-color:white;
+    color:white;
 
-padding:16px;
+    padding:16px;
 
-font-size:18px;
+    font-size:18px;
 
 }
 
 .word-table td{
 
-padding:14px;
+    padding:14px;
 
-border-bottom:1px solid #e9ecef;
+    border-bottom:1px solid #e9ecef;
 
-vertical-align:middle;
+    vertical-align:middle;
 
 }
 
@@ -861,105 +897,170 @@ vertical-align:middle;
 
 }
 
+
+/* ==========================================
+   ARABIC WORD IN TABLE
+========================================== */
+
 .word-table td:nth-child(2){
 
     text-align:center;
 
     font-size:28px;
 
-    font-family:'Amiri','Scheherazade New',serif;
+    font-family:'Scheherazade New',serif;
+
+    direction:rtl;
 
 }
 
+
+/* ==========================================
+   GUJARATI MEANING IN TABLE
+========================================== */
+
 .word-table td:nth-child(3){
+
+    font-family:'Rasa',sans-serif;
 
     font-size:20px;
 
 }
 
-/* ===========================
-   MOBILE
-=========================== */
 
-@media(max-width:768px){
+/* ==========================================
+   GUJARATI TEXT
+========================================== */
 
-.filter-bar{
+.gujarati,
+.gujarati-text,
+[lang="gu"]{
 
-    flex-direction:column;
-
-}
-
-.word-table{
-
-    display:block;
-
-    overflow-x:auto;
+    font-family:'Rasa',sans-serif;
 
 }
 
-.page-title h2{
 
-    font-size:28px;
+/* ==========================================
+   ARABIC TEXT
+========================================== */
+
+.arabic,
+.word,
+.surah-name,
+.result-card h2,
+.word-table td:nth-child(2),
+.suggestion-item,
+[lang="ar"]{
+
+    font-family:'Scheherazade New',serif;
 
 }
 
-}
-/* ===========================
-SURAH INFO CARD
-=========================== */
+
+/* ==========================================
+   SURAH INFO CARD
+========================================== */
 
 .surah-info-card{
 
-background:#ffffff;
+    background:#ffffff;
 
-padding:25px;
+    padding:25px;
 
-border-radius:12px;
+    border-radius:12px;
 
-box-shadow:0 3px 12px rgba(0,0,0,.08);
+    box-shadow:0 3px 12px rgba(0,0,0,.08);
 
 }
 
 .surah-info-card h2{
 
-text-align:center;
+    text-align:center;
 
-font-family:'Amiri',serif;
+    font-family:'Scheherazade New',serif;
 
-font-size:42px;
+    font-size:42px;
 
-color:#0B6B3A;
+    color:#0B6B3A;
 
-margin-bottom:20px;
+    margin-bottom:20px;
 
 }
 
 .surah-meta{
 
-display:flex;
+    display:flex;
 
-justify-content:center;
+    justify-content:center;
 
-flex-wrap:wrap;
+    flex-wrap:wrap;
 
-gap:15px;
+    gap:15px;
 
 }
 
 .surah-meta span{
 
-background:#f3f8f4;
+    background:#f3f8f4;
 
-padding:10px 18px;
+    padding:10px 18px;
 
-border-radius:30px;
+    border-radius:30px;
 
-font-weight:600;
+    font-weight:600;
 
-color:#0B6B3A;
+    color:#0B6B3A;
 
-font-size:16px;
+    font-size:16px;
 
-border:1px solid #d8e8dc;
+    border:1px solid #d8e8dc;
+
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media(max-width:768px){
+
+    .arabic{
+
+        font-size:32px;
+
+    }
+
+    .result-row{
+
+        font-size:16px;
+
+    }
+
+    .filter-bar{
+
+        flex-direction:column;
+
+    }
+
+    .word-table{
+
+        display:block;
+
+        overflow-x:auto;
+
+    }
+
+    .page-title h2{
+
+        font-size:28px;
+
+    }
+
+    .word-table td:nth-child(2){
+
+        font-size:25px;
+
+    }
 
 }
