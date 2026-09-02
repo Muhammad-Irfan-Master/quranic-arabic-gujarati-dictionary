@@ -1064,3 +1064,35 @@ footer{
     }
 
 }
+/* ==========================================
+   LANGUAGE FONTS
+========================================== */
+
+
+/* Arabic */
+
+.arabic,
+.arabic-word,
+.word,
+.surah-name,
+.result-card h2,
+.word-table td:nth-child(2),
+.suggestion-item,
+[lang="ar"]{
+
+    font-family:'Scheherazade New',serif;
+
+}
+
+
+/* Gujarati */
+
+.gujarati,
+.gujarati-text,
+.gujarati-label,
+.word-table td:nth-child(3),
+[lang="gu"]{
+
+    font-family:'Rasa',sans-serif;
+
+}
