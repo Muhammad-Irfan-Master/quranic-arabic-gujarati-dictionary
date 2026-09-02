@@ -3,14 +3,29 @@
 // Complete Search System
 // =====================================
 
+
 let dictionary = [];
 
+
+// =====================================
 // DOM Elements
-const resultBox = document.getElementById("results");
-const searchInput = document.getElementById("searchInput");
-const surahFilter = document.getElementById("surahFilter");
-const paraFilter = document.getElementById("paraFilter");
-const suggestionBox = document.getElementById("suggestions");
+// =====================================
+
+const resultBox =
+    document.getElementById("results");
+
+const searchInput =
+    document.getElementById("searchInput");
+
+const surahFilter =
+    document.getElementById("surahFilter");
+
+const paraFilter =
+    document.getElementById("paraFilter");
+
+const suggestionBox =
+    document.getElementById("suggestions");
+
 
 // =====================================
 // 1. DATABASE LOAD
@@ -22,6 +37,7 @@ async function loadDatabase() {
 
         console.log("Loading database...");
 
+
         // ---------------------------------
         // پہلے پرانی database.json load کریں
         // ---------------------------------
@@ -30,22 +46,35 @@ async function loadDatabase() {
             "data/database.json?v=" + Date.now()
         );
 
+
         if (!oldResponse.ok) {
+
             throw new Error(
                 "database.json load نہیں ہو سکی"
             );
+
         }
 
-        const oldDatabase = await oldResponse.json();
 
+        const oldDatabase =
+            await oldResponse.json();
+
+
+        // ---------------------------------
         // صرف Surah 1 سے 88 تک پرانا data رکھیں
-        const oldData = oldDatabase.filter(item => {
+        // ---------------------------------
 
-            const chapter = Number(item.chapter);
+        const oldData =
+            oldDatabase.filter(item => {
 
-            return chapter >= 1 && chapter <= 88;
+                const chapter =
+                    Number(item.chapter);
 
-        });
+                return chapter >= 1 &&
+                       chapter <= 88;
+
+            });
+
 
         console.log(
             "Old Database (Surah 1-88):",
@@ -60,10 +89,12 @@ async function loadDatabase() {
 
         const surahFiles = [];
 
+
         for (let i = 89; i <= 114; i++) {
 
             const surahNumber =
                 String(i).padStart(3, "0");
+
 
             surahFiles.push(
                 `data/surahs/${surahNumber}.json`
@@ -76,48 +107,58 @@ async function loadDatabase() {
         // تمام نئی files ایک ساتھ Load کریں
         // ---------------------------------
 
-        const responses = await Promise.all(
+        const responses =
+            await Promise.all(
 
-            surahFiles.map(file =>
-                fetch(file + "?v=" + Date.now())
-            )
+                surahFiles.map(file =>
+                    fetch(
+                        file + "?v=" + Date.now()
+                    )
+                )
 
-        );
+            );
 
 
         // ---------------------------------
         // Check کریں کہ کوئی file missing نہ ہو
         // ---------------------------------
 
-        responses.forEach((response, index) => {
+        responses.forEach(
+            (response, index) => {
 
-            if (!response.ok) {
+                if (!response.ok) {
 
-                throw new Error(
-                    "File load نہیں ہوئی: " +
-                    surahFiles[index]
-                );
+                    throw new Error(
+                        "File load نہیں ہوئی: " +
+                        surahFiles[index]
+                    );
+
+                }
 
             }
-
-        });
+        );
 
 
         // ---------------------------------
         // JSON Data حاصل کریں
         // ---------------------------------
 
-        const newData = await Promise.all(
+        const newData =
+            await Promise.all(
 
-            responses.map(response =>
-                response.json()
-            )
+                responses.map(response =>
+                    response.json()
+                )
 
-        );
+            );
 
 
+        // ---------------------------------
         // تمام نئی Surah files کو ایک array بنائیں
-        const newSurahData = newData.flat();
+        // ---------------------------------
+
+        const newSurahData =
+            newData.flat();
 
 
         console.log(
@@ -131,8 +172,11 @@ async function loadDatabase() {
         // ---------------------------------
 
         dictionary = [
+
             ...oldData,
+
             ...newSurahData
+
         ];
 
 
@@ -148,6 +192,7 @@ async function loadDatabase() {
 
         const wordCountElem =
             document.getElementById("wordCount");
+
 
         if (wordCountElem) {
 
@@ -178,9 +223,11 @@ async function loadDatabase() {
             error
         );
 
+
         if (resultBox) {
 
             resultBox.innerHTML = `
+
                 <div class="no-result"
                      style="text-align:center; padding:20px;">
 
@@ -193,6 +240,7 @@ async function loadDatabase() {
                     </p>
 
                 </div>
+
             `;
 
         }
@@ -208,8 +256,11 @@ async function loadDatabase() {
 
 function populateFilters() {
 
+
     if (!surahFilter || !paraFilter) {
+
         return;
+
     }
 
 
@@ -220,13 +271,18 @@ function populateFilters() {
     const surahs = [
 
         ...new Set(
+
             dictionary
                 .map(item => item.chapter)
                 .filter(Boolean)
+
         )
 
     ].sort(
-        (a, b) => Number(a) - Number(b)
+
+        (a, b) =>
+            Number(a) - Number(b)
+
     );
 
 
@@ -237,13 +293,18 @@ function populateFilters() {
     const paras = [
 
         ...new Set(
+
             dictionary
                 .map(item => item.para)
                 .filter(Boolean)
+
         )
 
     ].sort(
-        (a, b) => Number(a) - Number(b)
+
+        (a, b) =>
+            Number(a) - Number(b)
+
     );
 
 
@@ -252,6 +313,7 @@ function populateFilters() {
     // ---------------------------------
 
     surahFilter.innerHTML =
+
         `<option value="">
             تمام سورتیں (All Surahs)
         </option>`;
@@ -260,6 +322,7 @@ function populateFilters() {
     surahs.forEach(surah => {
 
         surahFilter.innerHTML +=
+
             `<option value="${surah}">
                 Surah ${surah}
             </option>`;
@@ -272,6 +335,7 @@ function populateFilters() {
     // ---------------------------------
 
     paraFilter.innerHTML =
+
         `<option value="">
             تمام پارے (All Paras)
         </option>`;
@@ -280,6 +344,7 @@ function populateFilters() {
     paras.forEach(para => {
 
         paraFilter.innerHTML +=
+
             `<option value="${para}">
                 Para ${para}
             </option>`;
@@ -295,25 +360,35 @@ function populateFilters() {
 
 function applyFilters() {
 
+
     const keyword =
+
         searchInput
-            ? searchInput.value.trim().toLowerCase()
+            ? searchInput.value
+                .trim()
+                .toLowerCase()
+
             : "";
 
 
     const selectedSurah =
+
         surahFilter
             ? surahFilter.value
+
             : "";
 
 
     const selectedPara =
+
         paraFilter
             ? paraFilter.value
+
             : "";
 
 
-    let results = dictionary;
+    let results =
+        dictionary;
 
 
     // ---------------------------------
@@ -322,53 +397,69 @@ function applyFilters() {
 
     if (keyword !== "") {
 
-        results = results.filter(item => {
+        results =
+            results.filter(item => {
 
-            const arabic =
-                String(item.word || "")
+
+                const arabic =
+
+                    String(item.word || "")
+                        .toLowerCase();
+
+
+                const plain =
+
+                    String(item.plain || "")
+                        .toLowerCase();
+
+
+                const guPron =
+
+                    String(
+                        item.pronunciation_gu || ""
+                    )
                     .toLowerCase();
 
 
-            const plain =
-                String(item.plain || "")
+                const guMeaning =
+
+                    String(
+                        item.meaning_gu || ""
+                    )
                     .toLowerCase();
 
 
-            const guPron =
-                String(item.pronunciation_gu || "")
-                    .toLowerCase();
+                const chapter =
+
+                    String(
+                        item.chapter || ""
+                    );
 
 
-            const guMeaning =
-                String(item.meaning_gu || "")
-                    .toLowerCase();
+                const para =
+
+                    String(
+                        item.para || ""
+                    );
 
 
-            const chapter =
-                String(item.chapter || "");
+                return (
 
+                    arabic.includes(keyword) ||
 
-            const para =
-                String(item.para || "");
+                    plain.includes(keyword) ||
 
+                    guPron.includes(keyword) ||
 
-            return (
+                    guMeaning.includes(keyword) ||
 
-                arabic.includes(keyword) ||
+                    chapter === keyword ||
 
-                plain.includes(keyword) ||
+                    para === keyword
 
-                guPron.includes(keyword) ||
+                );
 
-                guMeaning.includes(keyword) ||
-
-                chapter === keyword ||
-
-                para === keyword
-
-            );
-
-        });
+            });
 
     }
 
@@ -379,12 +470,14 @@ function applyFilters() {
 
     if (selectedSurah !== "") {
 
-        results = results.filter(item =>
+        results =
 
-            String(item.chapter) ===
-            String(selectedSurah)
+            results.filter(item =>
 
-        );
+                String(item.chapter) ===
+                String(selectedSurah)
+
+            );
 
     }
 
@@ -395,12 +488,14 @@ function applyFilters() {
 
     if (selectedPara !== "") {
 
-        results = results.filter(item =>
+        results =
 
-            String(item.para) ===
-            String(selectedPara)
+            results.filter(item =>
 
-        );
+                String(item.para) ===
+                String(selectedPara)
+
+            );
 
     }
 
@@ -420,15 +515,22 @@ function applyFilters() {
 
 function showResults(results) {
 
+
     if (!resultBox) {
+
         return;
+
     }
 
 
+    // ---------------------------------
     // کوئی Result نہیں
+    // ---------------------------------
+
     if (results.length === 0) {
 
         resultBox.innerHTML = `
+
             <div class="no-result"
                  style="text-align:center; padding:20px;">
 
@@ -437,6 +539,7 @@ function showResults(results) {
                 </h3>
 
             </div>
+
         `;
 
         return;
@@ -447,69 +550,106 @@ function showResults(results) {
     let html = "";
 
 
+    // ---------------------------------
     // صرف پہلے 50 نتائج
-    results.slice(0, 50).forEach(item => {
+    // ---------------------------------
 
-        html += `
-
-        <div class="result-card">
-
-            <div class="arabic-word">
-                ${item.word || ""}
-            </div>
+    results
+        .slice(0, 50)
+        .forEach(item => {
 
 
-            <div class="result-row">
+            html += `
 
-                <strong>
-                    🔊 ગુજરાતી ઉચ્ચાર :
-                </strong>
-
-                ${item.pronunciation_gu || "-"}
-
-            </div>
+                <div class="result-card">
 
 
-            <div class="result-row">
+                    <!-- ===========================
+                         ARABIC WORD
+                    =========================== -->
 
-                <strong>
-                    📖 ગુજરાતી અર્થ :
-                </strong>
-
-                ${item.meaning_gu || "-"}
-
-            </div>
+                    <div class="arabic-word">
+                        ${item.word || ""}
+                    </div>
 
 
-            <div class="result-row">
+                    <!-- ===========================
+                         GUJARATI PRONUNCIATION
+                    =========================== -->
 
-                <strong>
-                    📚 Surah :
-                </strong>
+                    <div class="result-row">
 
-                ${item.chapter || "-"}
+                        <strong class="gujarati-label">
+                            🔊 ગુજરાતી ઉચ્ચાર :
+                        </strong>
 
-            </div>
+                        <span class="gujarati-text">
+                            ${item.pronunciation_gu || "-"}
+                        </span>
 
-
-            <div class="result-row">
-
-                <strong>
-                    🕌 Para :
-                </strong>
-
-                ${item.para || "-"}
-
-            </div>
-
-        </div>
-
-        `;
-
-    });
+                    </div>
 
 
-    resultBox.innerHTML = html;
+                    <!-- ===========================
+                         GUJARATI MEANING
+                    =========================== -->
+
+                    <div class="result-row">
+
+                        <strong class="gujarati-label">
+                            📖 ગુજરાતી અર્થ :
+                        </strong>
+
+                        <span class="gujarati-text">
+                            ${item.meaning_gu || "-"}
+                        </span>
+
+                    </div>
+
+
+                    <!-- ===========================
+                         SURAH
+                    =========================== -->
+
+                    <div class="result-row">
+
+                        <strong>
+                            📚 Surah :
+                        </strong>
+
+                        <span>
+                            ${item.chapter || "-"}
+                        </span>
+
+                    </div>
+
+
+                    <!-- ===========================
+                         PARA
+                    =========================== -->
+
+                    <div class="result-row">
+
+                        <strong>
+                            🕌 Para :
+                        </strong>
+
+                        <span>
+                            ${item.para || "-"}
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            `;
+
+        });
+
+
+    resultBox.innerHTML =
+        html;
 
 }
 
@@ -520,20 +660,32 @@ function showResults(results) {
 
 function showSuggestions() {
 
+
     if (!searchInput || !suggestionBox) {
+
         return;
+
     }
 
 
     const keyword =
-        searchInput.value.trim().toLowerCase();
+
+        searchInput.value
+            .trim()
+            .toLowerCase();
 
 
+    // ---------------------------------
     // خالی search
+    // ---------------------------------
+
     if (keyword === "") {
 
-        suggestionBox.style.display = "none";
-        suggestionBox.innerHTML = "";
+        suggestionBox.style.display =
+            "none";
+
+        suggestionBox.innerHTML =
+            "";
 
         applyFilters();
 
@@ -542,49 +694,71 @@ function showSuggestions() {
     }
 
 
+    // ---------------------------------
     // Search Suggestions
-    const results = dictionary.filter(item => {
+    // ---------------------------------
 
-        const word =
-            String(item.word || "")
-                .toLowerCase();
+    const results =
 
-
-        const plain =
-            String(item.plain || "")
-                .toLowerCase();
+        dictionary
+            .filter(item => {
 
 
-        const pronunciation =
-            String(item.pronunciation_gu || "")
-                .toLowerCase();
+                const word =
+
+                    String(item.word || "")
+                        .toLowerCase();
 
 
-        const meaning =
-            String(item.meaning_gu || "")
-                .toLowerCase();
+                const plain =
+
+                    String(item.plain || "")
+                        .toLowerCase();
 
 
-        return (
+                const pronunciation =
 
-            word.includes(keyword) ||
-
-            plain.includes(keyword) ||
-
-            pronunciation.includes(keyword) ||
-
-            meaning.includes(keyword)
-
-        );
-
-    }).slice(0, 10);
+                    String(
+                        item.pronunciation_gu || ""
+                    )
+                    .toLowerCase();
 
 
+                const meaning =
+
+                    String(
+                        item.meaning_gu || ""
+                    )
+                    .toLowerCase();
+
+
+                return (
+
+                    word.includes(keyword) ||
+
+                    plain.includes(keyword) ||
+
+                    pronunciation.includes(keyword) ||
+
+                    meaning.includes(keyword)
+
+                );
+
+            })
+            .slice(0, 10);
+
+
+    // ---------------------------------
     // کوئی suggestion نہیں
+    // ---------------------------------
+
     if (results.length === 0) {
 
-        suggestionBox.style.display = "none";
-        suggestionBox.innerHTML = "";
+        suggestionBox.style.display =
+            "none";
+
+        suggestionBox.innerHTML =
+            "";
 
         return;
 
@@ -596,7 +770,9 @@ function showSuggestions() {
 
     results.forEach(item => {
 
+
         const word =
+
             String(item.word || "")
                 .replace(/'/g, "\\'");
 
@@ -615,9 +791,12 @@ function showSuggestions() {
     });
 
 
-    suggestionBox.innerHTML = html;
+    suggestionBox.innerHTML =
+        html;
 
-    suggestionBox.style.display = "block";
+
+    suggestionBox.style.display =
+        "block";
 
 }
 
@@ -628,12 +807,16 @@ function showSuggestions() {
 
 function selectWord(word) {
 
+
     if (!searchInput) {
+
         return;
+
     }
 
 
-    searchInput.value = word;
+    searchInput.value =
+        word;
 
 
     if (suggestionBox) {
@@ -660,6 +843,7 @@ if (searchInput) {
         function () {
 
             showSuggestions();
+
             applyFilters();
 
         }
@@ -696,10 +880,15 @@ document.addEventListener(
     "click",
     function (e) {
 
+
         if (
+
             !e.target.closest(".search-box") &&
+
             !e.target.closest("#suggestions")
+
         ) {
+
 
             if (suggestionBox) {
 
