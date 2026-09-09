@@ -61,7 +61,7 @@
     "verse_key": "99:2",
     "word": "وَاَخۡرَجَتِ",
     "plain": "واخرجت",
-    "pronunciation_gu": "વઅખ્રજતિ",
+    "pronunciation_gu": "વઅખ્‌રજતિ",
     "meaning_gu": "અને બહાર કાઢશે (જમીને પોતાના બોજ)",
     "chapter": 99,
     "para": 30,
@@ -238,20 +238,6 @@
     "surah_name": "الزلزال"
   },
   {
-    "word_id": "239800",
-    "verse_id": "6143",
-    "verse_key": "99:5",
-    "word": "‏",
-    "plain": "‏",
-    "pronunciation_gu": "",
-    "meaning_gu": "",
-    "chapter": 99,
-    "para": 30,
-    "para_ruku": 24,
-    "surah_ruku": 1,
-    "surah_name": "الزلزال"
-  },
-  {
     "word_id": "239801",
     "verse_id": "6144",
     "verse_key": "99:6",
@@ -336,20 +322,6 @@
     "surah_name": "الزلزال"
   },
   {
-    "word_id": "239808",
-    "verse_id": "6144",
-    "verse_key": "99:6",
-    "word": "﻿﻿",
-    "plain": "﻿﻿",
-    "pronunciation_gu": "",
-    "meaning_gu": "",
-    "chapter": 99,
-    "para": 30,
-    "para_ruku": 24,
-    "surah_ruku": 1,
-    "surah_name": "الزلزال"
-  },
-  {
     "word_id": "239809",
     "verse_id": "6145",
     "verse_key": "99:7",
@@ -427,20 +399,6 @@
     "plain": "يره",
     "pronunciation_gu": "યરહૂ",
     "meaning_gu": "તે તેને જોઈ લેશે (અણુ જેટલી નેકી/બુરાઈ)",
-    "chapter": 99,
-    "para": 30,
-    "para_ruku": 24,
-    "surah_ruku": 1,
-    "surah_name": "الزلزال"
-  },
-  {
-    "word_id": "239815",
-    "verse_id": "6145",
-    "verse_key": "99:7",
-    "word": "‏",
-    "plain": "‏",
-    "pronunciation_gu": "",
-    "meaning_gu": "",
     "chapter": 99,
     "para": 30,
     "para_ruku": 24,
